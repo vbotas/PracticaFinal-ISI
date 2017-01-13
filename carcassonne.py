@@ -19,6 +19,13 @@ class Partida:
         else:
             return True
 
+    # Inicializa la lista de jugadores
+    def inicializar_jugadores(self, nombres_jugadores):
+        lista_jugadores = []
+        for nombre in nombres_jugadores:
+            lista_jugadores.append(Jugador(nombre))
+        return lista_jugadores
+
 class Jugador:
 
     # Inicializa la clase jugador
@@ -27,10 +34,3 @@ class Jugador:
         self.meeples = 8
         self.puntuacion = 0
 
-class Jugadores:
-
-    # Inicializa la clase jugadores
-    def __init__(self, nombres_jugadores):
-        self.jugadores = []
-        for nombre in nombres_jugadores:
-            self.jugadores.append(Jugador(nombre))
