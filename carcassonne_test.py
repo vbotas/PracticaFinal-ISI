@@ -178,7 +178,13 @@ class Test_basico(unittest.TestCase):
         pieza19 = ['Castillo','Castillo','Castillo','Castillo']
         pieza = Pieza_terreno(19)
         self.assertItemsEqual(pieza19, pieza.posicion)
-        
+
+    # Test para comprobar que se inicializan correctamente las coordenadas de cada pieza
+    def test_inicializar_coordenadas_pieza(self):
+        coordenadas = [None,None]
+        pieza = Pieza_terreno(1)
+        self.assertItemsEqual(coordenadas, pieza.coordenadas)
+
 
 if __name__ == '__main__':
     unittest.main()
