@@ -16,3 +16,10 @@ class Partida:
             return False
         else:
             return True
+
+class Jugador:
+
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.meeples = 8
+        self.puntuacion = 0
