@@ -7,3 +7,4 @@ class Partida:
             return False
         else:
             return True
+        
