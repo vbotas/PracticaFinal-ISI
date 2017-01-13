@@ -33,5 +33,17 @@ class Test_basico(unittest.TestCase):
         jugador2 = Jugador('Ana')
         self.assertNotEqual(expected, jugador2.nombre)
 
+    def test_meeples_jugadores(self):
+        #test para comprobar que el numero de meeples es correcto al no ser superior a 8
+        jugador = Jugador('Paco')
+        meeples_jugador = jugador.meeples
+        self.assertLessEqual(meeples_jugador, 8, msg="El numero de meeples por jugador no es correcto")
+        
+    def test_marcador_jugador(self):
+        # test para comprobar que el marcador no es negativo
+        jugador = Jugador('Paco')
+        puntuacion_jug = jugador.puntuacion
+        self.assertGreaterEqual(puntuacion_jug, 0, msg="Marcador incorrecto")
+
 if __name__ == '__main__':
     unittest.main()
