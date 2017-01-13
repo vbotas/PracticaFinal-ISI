@@ -1,4 +1,11 @@
-import random
+
+
+class Partida(object):
+
+    def __init__(self, nombres_jugadores):
+        
+
+'''import random
 
 class Partida(object):
     jugadores = 2
@@ -18,7 +25,7 @@ class Jugador (object):
         pass
 
 class Pieza_Territorio(object):
-    '''pieza = [0,0,0,0]
+    pieza = [0,0,0,0]
     def __init__(self):
         parte_pieza = 0
         while parte_pieza < len(self.pieza):
@@ -35,7 +42,7 @@ class Pieza_Territorio(object):
             else:
                 self.pieza[parte_pieza] = "Granja"
                 parte_pieza+=1
-        print (self.pieza)'''
+        print (self.pieza)
     pieza1 = ['Granja','Granja','Camino','Camino']
     pieza2 = ['Camino','Granja','Camino','Granja']
     pieza3 = ['Castillo','Camino','Camino','Castillo']
@@ -59,4 +66,6 @@ class Pieza_Territorio(object):
 
 ##Partida('juan','javier')
 ##jugador()
-##Pieza_Territorio()        
+##Pieza_Territorio()   
+
+'''     

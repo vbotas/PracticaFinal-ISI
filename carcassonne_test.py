@@ -3,6 +3,12 @@ from carcassonne import *
 
 
 class Test_basico(unittest.TestCase):
+
+"""import unittest
+from carcassonne import *
+
+
+class Test_basico(unittest.TestCase):
      
     def setUp(self):
         self.partida = Partida(jugador1='pedro', jugador2='juan')
@@ -17,7 +23,7 @@ class Test_basico(unittest.TestCase):
         self.assertEqual(jug2, 'juan', msg="Algo ha fallado al crear al jugador 2")
         
     def test_numero_jugadores (self):
-        ##test para comprobar que el número de jugadores no es mayor a 4
+        ##test para comprobar que el numero de jugadores no es mayor a 4
         numero_jugadores = self.partida.jugadores
         self.assertLessEqual(numero_jugadores, 5, msg="Mas jugadores de los permitidos.") 
         
@@ -35,4 +41,4 @@ class Test_basico(unittest.TestCase):
         ## test para comprobar que el marcador no es negativo.
         marcador_jug = self.jugador.marcador
         self.assertGreaterEqual(marcador_jug, 0, msg="Marcador incorrecto")
-        
+"""
