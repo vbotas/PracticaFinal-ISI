@@ -55,9 +55,9 @@ class Test_basico(unittest.TestCase):
     def test_inicializar_jugadores(self):
         jugador1 = 'Paco'
         jugador2 = 'Ana'
-        jugadores = Jugadores([jugador1,jugador2])
-        self.assertEqual(jugador1, Jugadores[1].nombre)
-        self.assertEqual(jugador2, Jugadores[2].nombre)
+        jugadores = Partida().inicializar_jugadores([jugador1,jugador2])
+        self.assertEqual(jugador1, jugadores[0].nombre)
+        self.assertEqual(jugador2, jugadores[1].nombre)
         
 
 if __name__ == '__main__':

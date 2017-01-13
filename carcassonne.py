@@ -26,3 +26,11 @@ class Jugador:
         self.nombre = nombre
         self.meeples = 8
         self.puntuacion = 0
+
+class Jugadores:
+
+    # Inicializa la clase jugadores
+    def __init__(self, nombres_jugadores):
+        self.jugadores = []
+        for nombre in nombres_jugadores:
+            self.jugadores.append(Jugador(nombre))
