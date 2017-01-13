@@ -3,8 +3,9 @@ class Partida:
     # Comprueba que el numero de jugadores sea correcto
     def num_jug_correcto(self, nombres_jugadores):
         num_maximo_jugadores = 4
+        num_minimo_jugadores = 2
         num_jugadores = len(nombres_jugadores)
-        if num_jugadores > num_maximo_jugadores:
+        if num_jugadores > num_maximo_jugadores or num_jugadores < num_minimo_jugadores:
             return False
         else:
             return True
