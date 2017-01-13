@@ -15,6 +15,12 @@ class Test_basico(unittest.TestCase):
         expected = False
         self.assertEqual(expected, Partida().num_jug_correcto(jugadores))
 
+    # Test que comprueba que el numero de jugadores es incorrecto
+    def test_comprobar_numero_jugadores2(self):
+        jugadores = ['Paco']
+        expected = False
+        self.assertEqual(expected, Partida().num_jug_correcto(jugadores))
+
     # Test que comprueba que los nombres no se repiten
     def test_comprobar_nombres(self):
         jugadores = ['Paco','Ana','Maria']
