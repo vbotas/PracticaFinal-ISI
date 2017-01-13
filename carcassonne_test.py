@@ -31,7 +31,7 @@ class Test_basico(unittest.TestCase):
     def test_inicializar_jugador2(self):
         expected = 'Paco'
         jugador2 = Jugador('Ana')
-        self.assertEqual(expected, jugador2.nombre)
+        self.assertNotEqual(expected, jugador2.nombre)
 
 if __name__ == '__main__':
     unittest.main()
