@@ -7,4 +7,12 @@ class Partida:
             return False
         else:
             return True
-        
+
+    def nombres_jug_correcto(self, nombres_jugadores):
+        import collections
+        # Cuento la frecuencia de repeticion de los nombres
+        freq = collections.Counter(nombres_jugadores).values()
+        if max(freq) > 1:
+            return False
+        else:
+            return True
