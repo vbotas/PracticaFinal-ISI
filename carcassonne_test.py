@@ -338,6 +338,16 @@ class Test_basico(unittest.TestCase):
         coordenadas = [0,0]
         self.assertItemsEqual(coordenadas,tablero[0].coordenadas)
 
+    # Test para comprobar que el numero de jugadores es correcto al inicializar la partida
+    def test_inicializar_partida_comprobar_num_jugadores(self):
+        expected = "Numero de jugadores incorrecto. Solo pueden jugar entre 2 y 4 personas"
+        self.assertEqual(expected,Partida(['Paco']))
+
+    # Test para comprobar que el numero de jugadores es correcto al inicializar la partida
+    def test_inicializar_partida_comprobar_nombre_jugadores(self):
+        expected = "No se puede repetir el nombre de dos jugadores"
+        self.assertEqual(expected,Partida(['Paco','Ana','Paco']))
+
     # Test para comprobar el numero de jugadores de la partida
     def test_inicializar_partida_comprobar_jugadores_long(self):
         partida = Partida(['Paco','Ana','Maria','Pepe'])
