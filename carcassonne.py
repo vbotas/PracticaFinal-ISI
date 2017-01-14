@@ -39,6 +39,9 @@ class Partida:
     def inicializar_tablero(self):
         tipo_pieza_inicial = 10
         pieza_inicial = Pieza_terreno(tipo_pieza_inicial)
+        pieza_inicial.coordenadas = [0, 0]
+        tablero = [pieza_inicial]
+        return tablero
 
 
 class Jugador:
