@@ -308,30 +308,18 @@ class Test_basico(unittest.TestCase):
     # Test que comprueba la longitud de la baraja inicializada
     def test_inicializar_baraja_longitud(self):
         long_baraja = 71
-        self.assertEqual(long_baraja, len(Partida().inicializar_baraja))
+        self.assertEqual(long_baraja, len(Partida().inicializar_baraja()))
 
-    # Test que comprueba que la baraja se inicializa correctamente
+    # Test que comprueba que comprueba si las piezas aparecen ordenadas (comprobacion de la primera)
     def test_inicializar_baraja(self):
-        baraja = Pieza_terreno(1).repetir_pieza() \
-            + Pieza_terreno(2).repetir_pieza() \
-            + Pieza_terreno(3).repetir_pieza() \
-            + Pieza_terreno(4).repetir_pieza() \
-            + Pieza_terreno(5).repetir_pieza() \
-            + Pieza_terreno(6).repetir_pieza() \
-            + Pieza_terreno(7).repetir_pieza() \
-            + Pieza_terreno(8).repetir_pieza() \
-            + Pieza_terreno(9).repetir_pieza() \
-            + Pieza_terreno(10).repetir_pieza() \
-            + Pieza_terreno(11).repetir_pieza() \
-            + Pieza_terreno(12).repetir_pieza() \
-            + Pieza_terreno(13).repetir_pieza() \
-            + Pieza_terreno(14).repetir_pieza() \
-            + Pieza_terreno(15).repetir_pieza() \
-            + Pieza_terreno(16).repetir_pieza() \
-            + Pieza_terreno(17).repetir_pieza() \
-            + Pieza_terreno(18).repetir_pieza() \
-            + Pieza_terreno(19).repetir_pieza()
-        self.assertItemsEqual(baraja, Partida().inicializar_baraja)
+        baraja = Partida().inicializar_baraja()
+        self.assertEqual(1, baraja[0].tipo)
+
+    # Test que comprueba que comprueba si las piezas aparecen ordenadas (comprobacion de la ultima)
+    def test_inicializar_baraja(self):
+        baraja = Partida().inicializar_baraja()
+        self.assertEqual(19, baraja[-1].tipo)
+
 
 
 if __name__ == '__main__':
