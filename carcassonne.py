@@ -52,9 +52,9 @@ class Partida:
         if not self.nombres_jug_correcto(nombres_jugadores):
             return "No se puede repetir el nombre de dos jugadores"
         self.jugadores = self.inicializar_jugadores(nombres_jugadores)
-        self.baraja = self.inicializar_baraja()
+        self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
         random.shuffle(self.baraja)  # aleatorizo la baraja
-        self.tablero = self.inicializar_tablero()
+        self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
         return self
 
 
@@ -63,7 +63,7 @@ class Jugador:
     # Inicializa la clase jugador
     def __init__(self, nombre):
         self.nombre = nombre
-        self.meeples = 8
+        self.meeples = 8  # meeples disponibles
         self.puntuacion = 0
 
 
@@ -157,5 +157,11 @@ class Pieza_terreno:
     # Inicializa la clase pieza territorio
     def __init__(self, tipo):
         self.tipo = tipo
+        # Posicion = ['Norte','Este','Sur','Oeste']
         self.posicion = self.asignar_posicion(tipo)
+        # Coordenada X y coordenada Y
         self.coordenadas = [None,None]
+        # Si no hay ningun meeple colocado, self.meeples = None. Si lo hay,
+        # self.meeples toma el valor de la parte en la que se coloca:
+        # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
+        self.meeples = None
