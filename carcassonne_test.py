@@ -311,16 +311,32 @@ class Test_basico(unittest.TestCase):
         self.assertEqual(long_baraja, len(Partida().inicializar_baraja()))
 
     # Test que comprueba que comprueba si las piezas aparecen ordenadas (comprobacion de la primera)
-    def test_inicializar_baraja(self):
+    def test_inicializar_baraja_tipo(self):
         baraja = Partida().inicializar_baraja()
         self.assertEqual(1, baraja[0].tipo)
 
     # Test que comprueba que comprueba si las piezas aparecen ordenadas (comprobacion de la ultima)
-    def test_inicializar_baraja(self):
+    def test_inicializar_baraja_tipo2(self):
         baraja = Partida().inicializar_baraja()
         self.assertEqual(19, baraja[-1].tipo)
 
+    # Test que comprueba la longitud del tablero inicializado sea la correcta
+    def test_inicializar_tablero_longitud(self):
+        tablero = Partida().inicializar_tablero()
+        long_tablero = 1
+        self.assertEqual(long_tablero,len(tablero))
 
+    # Test que comprueba si el tipo de la pieza inicial es el correcto
+    def test_inicializar_tablero_tipo(self):
+        tablero = Partida().inicializar_tablero()
+        tipo = 10
+        self.assertEqual(tipo,tablero[0].tipo)
+
+    # Test para comprobar que las coordenadas de la pieza inicial son correctas
+    def test_inicializar_tablero_coordenadas(self):
+        tablero = Partida().inicializar_tablero()
+        coordenadas = [0,0]
+        self.assertItemsEqual(coordenadas,tablero[0].coordenadas)
 
 if __name__ == '__main__':
     unittest.main()

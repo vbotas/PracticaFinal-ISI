@@ -35,6 +35,11 @@ class Partida:
             baraja += Pieza_terreno(i+1).repetir_pieza()
         return baraja
 
+    # Inicializa el tablero
+    def inicializar_tablero(self):
+        tipo_pieza_inicial = 10
+        pieza_inicial = Pieza_terreno(tipo_pieza_inicial)
+
 
 class Jugador:
 
