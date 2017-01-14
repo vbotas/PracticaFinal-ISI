@@ -308,7 +308,7 @@ class Test_basico(unittest.TestCase):
     # Test que comprueba la longitud de la baraja inicializada
     def test_inicializar_baraja_longitud(self):
         long_baraja = 71
-        self.assertIsEqual(long_baraja, len(Partida().inicializar_baraja))
+        self.assertEqual(long_baraja, len(Partida().inicializar_baraja))
 
     # Test que comprueba que la baraja se inicializa correctamente
     def test_inicializar_baraja(self):
