@@ -338,5 +338,36 @@ class Test_basico(unittest.TestCase):
         coordenadas = [0,0]
         self.assertItemsEqual(coordenadas,tablero[0].coordenadas)
 
+    # Test para comprobar el numero de jugadores de la partida
+    def test_inicializar_partida_comprobar_jugadores_long(self):
+        partida = Partida(['Paco','Ana','Maria','Pepe'])
+        self.assertEqual(4,len(partida.jugadores))
+
+    # Test para comprobar el numero de piezas en la baraja al inicializar la partida
+    def test_inicializar_partida_comprobar_baraja_long(self):
+        partida = Partida(['Paco','Ana','Maria','Pepe'])
+        self.assertEqual(71,len(partida.baraja))
+
+    # Test para comprobar el numero de piezas en el tablero al inicializar la partida
+    def test_inicializar_partida_comprobar_tablero_long(self):
+        partida = Partida(['Paco','Ana','Maria','Pepe'])
+        self.assertEqual(1,len(partida.tablero))
+
+    # Test para comprobar la instancia de alguno de los jugadores
+    def test_inicializar_partida_comprobar_jugadores_instancia(self):
+        partida = Partida(['Paco','Ana','Maria','Pepe'])
+        self.assertIsInstance(partida.jugadores[2], Jugador)
+
+    # Test para comprobar la instancia de alguna de las piezas
+    def test_inicializar_partida_comprobar_baraja_instancia(self):
+        partida = Partida(['Paco','Ana','Maria','Pepe'])
+        self.assertIsInstance(partida.baraja[16],Pieza_territorio)
+
+    # Test para comprobar la instancia de la pieza del tablero
+    def test_inicializar_partida_comprobar_tablero_instancia(self):
+        partida = Partida(['Paco','Ana','Maria','Pepe'])
+        self.assertIsInstance(partida.tablero[0],Pieza_territorio)
+    
+
 if __name__ == '__main__':
     unittest.main()
