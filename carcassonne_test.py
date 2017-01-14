@@ -377,7 +377,12 @@ class Test_basico(unittest.TestCase):
     def test_inicializar_partida_comprobar_tablero_instancia(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         self.assertIsInstance(partida.tablero[0],Pieza_terreno)
-    
+
+    # Test para comprobar que se inicializa el atributo meeples de una pieza
+    def test_inicializar_pieza_add_meeples(self):
+        pieza = Pieza_terreno(15)
+        self.assertIsNone(pieza.meeples)
+
 
 if __name__ == '__main__':
     unittest.main()
