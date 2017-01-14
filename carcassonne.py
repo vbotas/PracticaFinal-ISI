@@ -27,6 +27,14 @@ class Partida:
             lista_jugadores.append(Jugador(nombre))
         return lista_jugadores
 
+    # Inicializa la baraja
+    def inicializar_baraja(self):
+        numero_tipos_pieza = 19
+        baraja = []
+        for i in range(numero_tipos_pieza):
+            baraja += Pieza_terreno(i+1).repetir_pieza()
+        return baraja
+
 
 class Jugador:
 
