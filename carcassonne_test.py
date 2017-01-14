@@ -299,6 +299,11 @@ class Test_basico(unittest.TestCase):
         repeticion = 1
         self.assertEqual(repeticion, len(pieza.repetir_pieza()))
 
+    # Test para comprobar que cada repeticion es una instancia de una pieza
+    def test_repetir_pieza_instancia(self):
+        pieza = Pieza_terreno(2)
+        piezas_repetidas = pieza.repetir_pieza()
+        self.assertIsInstance(piezas_repetidas[1],Pieza_terreno)
 
 if __name__ == '__main__':
     unittest.main()
