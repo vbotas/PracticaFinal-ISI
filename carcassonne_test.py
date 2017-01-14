@@ -185,6 +185,120 @@ class Test_basico(unittest.TestCase):
         pieza = Pieza_terreno(1)
         self.assertItemsEqual(coordenadas, pieza.coordenadas)
 
+    # Test para comprobar que la pieza 1 se repite tantas veces como sea necesario
+    def test_repetir_pieza1(self):
+        pieza = Pieza_terreno(1)
+        repeticion = 9
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 2 se repite tantas veces como sea necesario
+    def test_repetir_pieza2(self):
+        pieza = Pieza_terreno(2)
+        repeticion = 8
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 3 se repite tantas veces como sea necesario
+    def test_repetir_pieza3(self):
+        pieza = Pieza_terreno(3)
+        repeticion = 5
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+ 
+    # Test para comprobar que la pieza 4 se repite tantas veces como sea necesario
+    def test_repetir_pieza4(self):
+        pieza = Pieza_terreno(4)
+        repeticion = 5
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 5 se repite tantas veces como sea necesario
+    def test_repetir_pieza5(self):
+        pieza = Pieza_terreno(5)
+        repeticion = 5
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 6 se repite tantas veces como sea necesario
+    def test_repetir_pieza6(self):
+        pieza = Pieza_terreno(6)
+        repeticion = 4
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 7 se repite tantas veces como sea necesario
+    def test_repetir_pieza7(self):
+        pieza = Pieza_terreno(7)
+        repeticion = 4
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 8 se repite tantas veces como sea necesario
+    def test_repetir_pieza8(self):
+        pieza = Pieza_terreno(8)
+        repeticion = 4
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 9 se repite tantas veces como sea necesario
+    def test_repetir_pieza9(self):
+        pieza = Pieza_terreno(9)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 10 se repite tantas veces como sea necesario
+    def test_repetir_pieza10(self):
+        pieza = Pieza_terreno(10)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 11 se repite tantas veces como sea necesario
+    def test_repetir_pieza11(self):
+        pieza = Pieza_terreno(11)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+ 
+    # Test para comprobar que la pieza 12 se repite tantas veces como sea necesario
+    def test_repetir_pieza12(self):
+        pieza = Pieza_terreno(12)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 13 se repite tantas veces como sea necesario
+    def test_repetir_pieza13(self):
+        pieza = Pieza_terreno(13)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 14 se repite tantas veces como sea necesario
+    def test_repetir_pieza14(self):
+        pieza = Pieza_terreno(14)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 15 se repite tantas veces como sea necesario
+    def test_repetir_pieza15(self):
+        pieza = Pieza_terreno(15)
+        repeticion = 3
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 16 se repite tantas veces como sea necesario
+    def test_repetir_pieza16(self):
+        pieza = Pieza_terreno(16)
+        repeticion = 2
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 17 se repite tantas veces como sea necesario
+    def test_repetir_pieza17(self):
+        pieza = Pieza_terreno(17)
+        repeticion = 2
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 18 se repite tantas veces como sea necesario
+    def test_repetir_pieza18(self):
+        pieza = Pieza_terreno(18)
+        repeticion = 1
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
+    # Test para comprobar que la pieza 19 se repite tantas veces como sea necesario
+    def test_repetir_pieza19(self):
+        pieza = Pieza_terreno(19)
+        repeticion = 1
+        self.assertEqual(repeticion, len(pieza.repetir_pieza()))
+
 
 if __name__ == '__main__':
     unittest.main()
