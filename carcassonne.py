@@ -27,6 +27,7 @@ class Partida:
             lista_jugadores.append(Jugador(nombre))
         return lista_jugadores
 
+
 class Jugador:
 
     # Inicializa la clase jugador
@@ -34,6 +35,7 @@ class Jugador:
         self.nombre = nombre
         self.meeples = 8
         self.puntuacion = 0
+
 
 class Pieza_terreno:
 
