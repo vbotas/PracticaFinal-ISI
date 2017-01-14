@@ -1,3 +1,5 @@
+import random
+
 class Partida:
 
     # Comprueba que el numero de jugadores sea correcto
@@ -42,6 +44,18 @@ class Partida:
         pieza_inicial.coordenadas = [0, 0]
         tablero = [pieza_inicial]
         return tablero
+
+    # Inicializacion de la partida
+    def inicializar(self, nombres_jugadores):
+        if not self.num_jug_correcto(nombres_jugadores):
+            return "Numero de jugadores incorrecto. Solo pueden jugar entre 2 y 4 personas"
+        if not self.nombres_jug_correcto(nombres_jugadores):
+            return "No se puede repetir el nombre de dos jugadores"
+        self.jugadores = self.inicializar_jugadores(nombres_jugadores)
+        self.baraja = self.inicializar_baraja()
+        random.shuffle(self.baraja)  # aleatorizo la baraja
+        self.tablero = self.inicializar_tablero()
+        return self
 
 
 class Jugador:
