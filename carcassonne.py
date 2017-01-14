@@ -39,6 +39,50 @@ class Jugador:
 
 class Pieza_terreno:
 
+    # Repite cada pieza el numero de veces que aparezca en el juego original
+    def repetir_pieza(self):
+        if self.tipo == 1:
+            pieza_repetida = 9*[self]
+        elif self.tipo == 2:
+            pieza_repetida = 8*[self]
+        elif self.tipo == 3:
+            pieza_repetida = 5*[self]
+        elif self.tipo == 4:
+            pieza_repetida = 5*[self]
+        elif self.tipo == 5:
+            pieza_repetida = 5*[self]
+        elif self.tipo == 6:
+            pieza_repetida = 4*[self]
+        elif self.tipo == 7:
+            pieza_repetida = 4*[self]
+        elif self.tipo == 8:
+            pieza_repetida = 4*[self]
+        elif self.tipo == 9:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 10:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 11:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 12:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 13:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 14:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 15:
+            pieza_repetida = 3*[self]
+        elif self.tipo == 16:
+            pieza_repetida = 2*[self]
+        elif self.tipo == 17:
+            pieza_repetida = 2*[self]
+        elif self.tipo == 18:
+            pieza_repetida = 1*[self]
+        elif self.tipo == 19:
+            pieza_repetida = 1*[self]
+        return pieza_repetida
+
+    # Asigna los distintos tipos de territorios al atributo posicion. El array se
+    # corresponderia con la parte ['Norte','Este','Sur','Oeste'] de la pieza
     def asignar_posicion(self, tipo):
         if tipo == 1:
             posicion = ['Granja','Granja','Camino','Camino']
@@ -82,5 +126,6 @@ class Pieza_terreno:
     
     # Inicializa la clase pieza territorio
     def __init__(self, tipo):
+        self.tipo = tipo
         self.posicion = self.asignar_posicion(tipo)
         self.coordenadas = [None,None]
