@@ -1,4 +1,5 @@
 import random
+from pip._vendor.distlib.compat import raw_input
 
 class Partida:
 
@@ -56,7 +57,28 @@ class Partida:
         random.shuffle(self.baraja)  # aleatorizo la baraja
         self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
         return self
-
+    
+    def turno_jugador(self):
+        numero_aleatorio = random.randint(1, 19)
+        pos_ficha = Pieza_terreno.asignar_posicion(numero_aleatorio)
+        Pieza_terreno(numero_aleatorio).repetir_pieza().numero_piezas_tipo -= 1 ##Con esta línea, disminuimos en 1 las piezas iguales del tipo que ha salido. Así, cuando se vuelva a llamar a la baraja(), ya contará con una pieza menos de este tipo.
+        coord_x = int(raw_input('Posicion X del tablero: '))
+        coord_y = int(raw_input('Posicion Y del tablero: '))
+        if coord_x > len(self.tablero):
+            self.tablero.append(range(len(self.tablero), coord_x))
+            self.tablero[coord_x].append(coord_y)
+            
+        self.tablero[coord_x][coord_y] = pos_ficha
+        colocar_meeple = raw_input('Colocar meeple? (s/n)')
+        if colocar_meeple == 's':
+            Pieza_terreno.meeples = raw_input('Introduzca posicion del meeple: ')
+            Jugador.meeples -= 1
+        elif colocar_meeple == 'n':
+            pass
+        return self.tablero
+        
+        
+        
 
 class Jugador:
 
@@ -65,50 +87,69 @@ class Jugador:
         self.nombre = nombre
         self.meeples = 8  # meeples disponibles
         self.puntuacion = 0
-
-
+        
+             
 class Pieza_terreno:
 
     # Repite cada pieza el numero de veces que aparezca en el juego original
     def repetir_pieza(self):
         if self.tipo == 1:
-            pieza_repetida = 9*[self]
+            numero_piezas_tipo = 9
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 2:
-            pieza_repetida = 8*[self]
+            numero_piezas_tipo = 8
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 3:
-            pieza_repetida = 5*[self]
+            numero_piezas_tipo = 5
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 4:
-            pieza_repetida = 5*[self]
+            numero_piezas_tipo = 5
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 5:
-            pieza_repetida = 5*[self]
+            numero_piezas_tipo = 5
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 6:
-            pieza_repetida = 4*[self]
+            numero_piezas_tipo = 4
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 7:
-            pieza_repetida = 4*[self]
+            numero_piezas_tipo = 4
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 8:
-            pieza_repetida = 4*[self]
+            numero_piezas_tipo = 4
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 9:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 10:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 11:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 12:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 13:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 14:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 15:
-            pieza_repetida = 3*[self]
+            numero_piezas_tipo = 3
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 16:
-            pieza_repetida = 2*[self]
+            numero_piezas_tipo = 2
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 17:
-            pieza_repetida = 2*[self]
+            numero_piezas_tipo = 2
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 18:
-            pieza_repetida = 1*[self]
+            numero_piezas_tipo = 1
+            pieza_repetida = numero_piezas_tipo*[self]
         elif self.tipo == 19:
-            pieza_repetida = 1*[self]
+            numero_piezas_tipo = 1
+            pieza_repetida = numero_piezas_tipo*[self]
         return pieza_repetida
 
     # Asigna los distintos tipos de territorios al atributo posicion. El array se
@@ -164,4 +205,6 @@ class Pieza_terreno:
         # Si no hay ningun meeple colocado, self.meeples = None. Si lo hay,
         # self.meeples toma el valor de la parte en la que se coloca:
         # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
-        self.meeples = None
+        self.meeples = None     
+        
+
