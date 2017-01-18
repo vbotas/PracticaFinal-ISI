@@ -394,7 +394,8 @@ class Test_basico(unittest.TestCase):
         pieza = Partida().sacar_pieza(['Paco','Ana','Maria','Pepe'], turno)
         self.assertGreaterEqual(pieza.tipo, 0, msg="Tipo erroneo")
         self.assertLessEqual(pieza.tipo, 19, msg="Tipo erroneo")
-
+    
+    #Test para actualizar puntuacion
     def test_actualizar_puntuacion(self):
         jugador1 = 'Cristina'	
         jugador2 = 'Guillermo'
@@ -410,6 +411,23 @@ class Test_basico(unittest.TestCase):
 	self.assertEqual(puntuacion1, jugadores[0].puntuacion)
         self.assertEqual(puntuacion2, jugadores[1].puntuacion)
 	self.assertEqual(puntuacion3, jugadores[2].puntuacion)
+
+    #Test para actualizar puntuacion, observando que suma correctamente
+    def test_actualizar_puntuacion2(self):
+        jugadores = Partida().inicializar_jugadores(['Cristina', 'Guillermo', 'Adrian'])
+	puntuacion1 = 90
+	puntuacion2 = 120
+	puntuacion3 = 110
+	jugadores[0].actualizar_puntuacion(puntuacion1)
+	jugadores[1].actualizar_puntuacion(puntuacion2)
+	jugadores[2].actualizar_puntuacion(puntuacion3)
+
+        jugadores[0].actualizar_puntuacion(50)
+	jugadores[1].actualizar_puntuacion(100)
+	jugadores[2].actualizar_puntuacion(200)
+	self.assertEqual(puntuacion1 + 50, jugadores[0].puntuacion)
+        self.assertEqual(puntuacion2 + 100, jugadores[1].puntuacion)
+	self.assertEqual(puntuacion3 + 200, jugadores[2].puntuacion)
 
 if __name__ == '__main__':
     unittest.main()
