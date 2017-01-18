@@ -75,12 +75,6 @@ class Jugador:
         self.meeples = 8  # meeples disponibles
         self.puntuacion = 0
 
-    
-    #Actualizar puntuacion
-    def actualizar_puntuacion(self, puntos):
-        self.puntuacion += puntos
-        return self
-
 
 class Pieza_terreno:
 
