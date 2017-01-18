@@ -39,9 +39,9 @@ class Partida:
     
     def sacar_pieza(self,nombres_jugadores,turno):
         pieza_sacada= []
-        turno += 1
         baraja = Partida().inicializar(nombres_jugadores).baraja
-        pieza_sacada = baraja[turno]
+        pieza_sacada = baraja[turno-1]
+        baraja.pop(turno-1)
         return pieza_sacada
         
     # Inicializa el tablero
