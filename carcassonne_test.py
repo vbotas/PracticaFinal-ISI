@@ -382,7 +382,12 @@ class Test_basico(unittest.TestCase):
     def test_inicializar_pieza_add_meeples(self):
         pieza = Pieza_terreno(15)
         self.assertIsNone(pieza.meeples)
-
+        
+    #test para comprobar que se saca de la baraja una pieza correcta.
+    def test_sacar_pieza(self):
+        turno = 6
+        pieza = Partida().sacar_pieza(['Paco','Ana','Maria','Pepe'],turno)
+        self.assertEqual(len(pieza.posicion), 4, msg="No tiene la longitud adecuada")
 
 if __name__ == '__main__':
     unittest.main()

@@ -28,7 +28,7 @@ class Partida:
         for nombre in nombres_jugadores:
             lista_jugadores.append(Jugador(nombre))
         return lista_jugadores
-
+    
     # Inicializa la baraja
     def inicializar_baraja(self):
         numero_tipos_pieza = 19
@@ -36,7 +36,14 @@ class Partida:
         for i in range(numero_tipos_pieza):
             baraja += Pieza_terreno(i+1).repetir_pieza()
         return baraja
-
+    
+    def sacar_pieza(self,nombres_jugadores,turno):
+        pieza_sacada= []
+        turno += 1
+        baraja = Partida().inicializar(nombres_jugadores).baraja
+        pieza_sacada = baraja[turno]
+        return pieza_sacada
+        
     # Inicializa el tablero
     def inicializar_tablero(self):
         tipo_pieza_inicial = 10
@@ -51,10 +58,12 @@ class Partida:
             return "Numero de jugadores incorrecto. Solo pueden jugar entre 2 y 4 personas"
         if not self.nombres_jug_correcto(nombres_jugadores):
             return "No se puede repetir el nombre de dos jugadores"
+        turno = 1
         self.jugadores = self.inicializar_jugadores(nombres_jugadores)
         self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
         random.shuffle(self.baraja)  # aleatorizo la baraja
         self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
+        
         return self
 
 
@@ -165,3 +174,5 @@ class Pieza_terreno:
         # self.meeples toma el valor de la parte en la que se coloca:
         # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
         self.meeples = None
+        
+
