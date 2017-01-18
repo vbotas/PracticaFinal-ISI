@@ -448,6 +448,16 @@ class Test_basico(unittest.TestCase):
         lista_ordenada_aux = [jugadores[2],jugadores[3],jugadores[0],jugadores[1]]
         self.assertEqual(lista_ordenada_aux[0], lista_ordenada[0])
 
+    def test_ordenar_jug_puntos2(self):
+        jugadores = Partida().inicializar_jugadores(['Paco','Ana'])
+        puntuacion1 = 100
+        puntuacion2 = 190
+        jugadores[0].actualizar_puntuacion(puntuacion1)
+        jugadores[1].actualizar_puntuacion(puntuacion2)
+        lista_ordenada = Partida().orden_jugadores_ptos(jugadores)
+        lista_ordenada_aux = [jugadores[1],jugadores[0]]
+        self.assertEqual(lista_ordenada_aux[0], lista_ordenada[0])
+
 
 
 
