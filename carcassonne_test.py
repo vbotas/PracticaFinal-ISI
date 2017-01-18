@@ -384,10 +384,16 @@ class Test_basico(unittest.TestCase):
         self.assertIsNone(pieza.meeples)
         
     #test para comprobar que se saca de la baraja una pieza correcta.
-    def test_sacar_pieza(self):
+    def test_long_sacar_pieza(self):
         turno = 6
         pieza = Partida().sacar_pieza(['Paco','Ana','Maria','Pepe'],turno)
         self.assertEqual(len(pieza.posicion), 4, msg="No tiene la longitud adecuada")
+        
+    def test_tipo_sacar_pieza(self):
+        turno = 15
+        pieza = Partida().sacar_pieza(['Paco','Ana','Maria','Pepe'], turno)
+        self.assertGreaterEqual(pieza.tipo, 0, msg="Tipo erroneo")
+        self.assertLessEqual(pieza.tipo, 19, msg="Tipo erroneo")
 
 if __name__ == '__main__':
     unittest.main()
