@@ -28,7 +28,7 @@ class Partida:
         for nombre in nombres_jugadores:
             lista_jugadores.append(Jugador(nombre))
         return lista_jugadores
-    
+
     # Inicializa la baraja
     def inicializar_baraja(self):
         numero_tipos_pieza = 19
@@ -36,14 +36,14 @@ class Partida:
         for i in range(numero_tipos_pieza):
             baraja += Pieza_terreno(i+1).repetir_pieza()
         return baraja
-    
+
     def sacar_pieza(self,nombres_jugadores,turno):
         pieza_sacada= []
         baraja = Partida().inicializar(nombres_jugadores).baraja
         pieza_sacada = baraja[turno-1]
         baraja.pop(turno-1)
         return pieza_sacada
-        
+
     # Inicializa el tablero
     def inicializar_tablero(self):
         tipo_pieza_inicial = 10
@@ -63,8 +63,14 @@ class Partida:
         self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
         random.shuffle(self.baraja)  # aleatorizo la baraja
         self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
-        
+
         return self
+
+    # Ordenar los jugadores en funcion de la puntuacion de cada uno de ellos
+    def orden_jugadores_ptos(self,lista_jugadores):
+        lista_jugadores_aux = sorted(lista_jugadores, key = lambda objeto: objeto.puntuacion, reverse = True)
+        return lista_jugadores_aux
+
 
 
 class Jugador:
@@ -75,7 +81,7 @@ class Jugador:
         self.meeples = 8  # meeples disponibles
         self.puntuacion = 0
 
-    
+
     #Actualizar puntuacion
     def actualizar_puntuacion(self, puntos):
         self.puntuacion += puntos
@@ -168,7 +174,7 @@ class Pieza_terreno:
         elif tipo == 19:
             posicion = ['Castillo','Castillo','Castillo','Castillo']
         return posicion
-    
+
     # Inicializa la clase pieza territorio
     def __init__(self, tipo):
         self.tipo = tipo
@@ -180,5 +186,3 @@ class Pieza_terreno:
         # self.meeples toma el valor de la parte en la que se coloca:
         # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
         self.meeples = None
-        
-

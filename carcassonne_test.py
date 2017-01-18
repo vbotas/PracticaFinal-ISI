@@ -82,7 +82,7 @@ class Test_basico(unittest.TestCase):
         pieza3 = ['Castillo','Camino','Camino','Castillo']
         pieza = Pieza_terreno(3)
         self.assertItemsEqual(pieza3, pieza.posicion)
- 
+
     # Test para comprobar que la posicion de la pieza de tipo 4 se inicializa correctamente
     def test_inicializar_pieza4(self):
         pieza4 = ['Castillo','Granja','Granja','Castillo']
@@ -130,7 +130,7 @@ class Test_basico(unittest.TestCase):
         pieza11 = ['Camino','Castillo','Camino','Camino']
         pieza = Pieza_terreno(11)
         self.assertItemsEqual(pieza11, pieza.posicion)
- 
+
     # Test para comprobar que la posicion de la pieza de tipo 12 se inicializa correctamente
     def test_inicializar_pieza12(self):
         pieza12 = ['Castillo','Castillo','Camino','Castillo']
@@ -202,7 +202,7 @@ class Test_basico(unittest.TestCase):
         pieza = Pieza_terreno(3)
         repeticion = 5
         self.assertEqual(repeticion, len(pieza.repetir_pieza()))
- 
+
     # Test para comprobar que la pieza 4 se repite tantas veces como sea necesario
     def test_repetir_pieza4(self):
         pieza = Pieza_terreno(4)
@@ -250,7 +250,7 @@ class Test_basico(unittest.TestCase):
         pieza = Pieza_terreno(11)
         repeticion = 3
         self.assertEqual(repeticion, len(pieza.repetir_pieza()))
- 
+
     # Test para comprobar que la pieza 12 se repite tantas veces como sea necesario
     def test_repetir_pieza12(self):
         pieza = Pieza_terreno(12)
@@ -382,22 +382,22 @@ class Test_basico(unittest.TestCase):
     def test_inicializar_pieza_add_meeples(self):
         pieza = Pieza_terreno(15)
         self.assertIsNone(pieza.meeples)
-        
+
     #test para comprobar que se saca de la baraja una pieza correcta.
     def test_long_sacar_pieza(self):
         turno = 6
         pieza = Partida().sacar_pieza(['Paco','Ana','Maria','Pepe'],turno)
         self.assertEqual(len(pieza.posicion), 4, msg="No tiene la longitud adecuada")
-        
+
     def test_tipo_sacar_pieza(self):
         turno = 15
         pieza = Partida().sacar_pieza(['Paco','Ana','Maria','Pepe'], turno)
         self.assertGreaterEqual(pieza.tipo, 0, msg="Tipo erroneo")
         self.assertLessEqual(pieza.tipo, 19, msg="Tipo erroneo")
-    
+
     #Test para actualizar puntuacion
     def test_actualizar_puntuacion(self):
-        jugador1 = 'Cristina'	
+        jugador1 = 'Cristina'
         jugador2 = 'Guillermo'
         jugador3 = 'Adrian'
         jugadores = Partida().inicializar_jugadores([jugador1, jugador2, jugador3])
@@ -428,6 +428,28 @@ class Test_basico(unittest.TestCase):
 	self.assertEqual(puntuacion1 + 50, jugadores[0].puntuacion)
         self.assertEqual(puntuacion2 + 100, jugadores[1].puntuacion)
 	self.assertEqual(puntuacion3 + 200, jugadores[2].puntuacion)
+
+    #Test para comprobar que se ordenan los jugadores en funcion de su puntuacion
+    def test_ordenar_jug_puntos(self):
+        jugador1 = 'Paco'
+        jugador2 = 'Ana'
+        jugador3 = 'Guillermo'
+        jugador4 = 'Cristina'
+        jugadores = Partida().inicializar_jugadores([jugador1,jugador2,jugador3,jugador4])
+        puntuacion1 = 100
+        puntuacion2 = 90
+        puntuacion3 = 200
+        puntuacion4 = 128
+        jugadores[0].actualizar_puntuacion(puntuacion1)
+        jugadores[1].actualizar_puntuacion(puntuacion2)
+        jugadores[2].actualizar_puntuacion(puntuacion3)
+        jugadores[3].actualizar_puntuacion(puntuacion4)
+        lista_ordenada = Partida().orden_jugadores_ptos(jugadores)
+        lista_ordenada_aux = [jugadores[2],jugadores[3],jugadores[0],jugadores[1]]
+        self.assertEqual(lista_ordenada_aux[0], lista_ordenada[0])
+
+
+
 
 if __name__ == '__main__':
     unittest.main()
