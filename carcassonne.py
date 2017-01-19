@@ -78,39 +78,48 @@ class Partida:
         array_colocacion = [0,1,0,0], quiere colocarlo a la derecha
         array_colocacion = [0,0,1,0], quiere colocarlo debajo
         array_colocacion = [0,0,0,1], quiere colocarlo a la izda.
-        Nos pasan tambien cual es la pieza que estara ya colocada, por lo que comprobamos si se puede colocar""" 
+        Nos pasan tambien cual es la pieza que estara ya colocada, por lo que comprobamos si se puede colocar"""
         self.array_colocacion = array_colocacion
         self.pieza_tablero = pieza_tablero
         tablero = self.inicializar_tablero()
         pieza_colocada = self.sacar_pieza(nombres_jugadores, turno)
-        
+
         if self.array_colocacion == [1,0,0,0]:
             #Comprobamos que la posicion "0" de la pieza ya colocada, es igual a la posicion "2" de la pieza que queremos colocar
             if self.pieza_tablero[0] == pieza_colocada.posicion[2]:
                 return True
             else:
                 return False
-            
+
         elif self.array_colocacion == [0,1,0,0]:
             #Comprobamos que la posicion "1" de la pieza ya colocada, es igual a la posicion "3" de la pieza que queremos colocar
             if self.pieza_tablero[1] == pieza_colocada.posicion[3]:
                 return True
             else:
                 return False
-            
+
         elif self.array_colocacion == [0,0,1,0]:
             #Comprobamos que la posicion "2" de la pieza ya colocada, es igual a la posicion "0" de la pieza que queremos colocar
             if self.pieza_tablero[2] == pieza_colocada.posicion[0]:
                 return True
             else:
                 return False
-            
+
         elif self.array_colocacion == [0,0,0,1]:
             #Comprobamos que la posicion "3" de la pieza ya colocada, es igual a la posicion "1" de la pieza que queremos colocar
             if self.pieza_tablero[3] == pieza_colocada.posicion[1]:
                 return True
             else:
                 return False
+        else:
+            return False
+
+    #Introducir meeple en una ficha del tablero
+    def introducir_meeple(self,pieza,posicion_meeple):
+        if jugador.meeples > 0:
+            pieza.meeple = posicion_meeple
+            jugador.meeples -= 1
+            return True
         else:
             return False
 
@@ -227,5 +236,3 @@ class Pieza_terreno:
         # self.meeples toma el valor de la parte en la que se coloca:
         # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
         self.meeples = None
-        
-
