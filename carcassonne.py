@@ -1,4 +1,5 @@
 import random
+import collections
 
 class Partida:
 
@@ -14,7 +15,7 @@ class Partida:
 
     # Comprueba que el nombre de los jugadores sea correcto
     def nombres_jug_correcto(self, nombres_jugadores):
-        import collections
+
         # Cuento la frecuencia de repeticion de los nombres
         freq = collections.Counter(nombres_jugadores).values()
         if max(freq) > 1:
@@ -115,7 +116,7 @@ class Partida:
             return False
 
     #Introducir meeple en una ficha del tablero
-    def introducir_meeple(self,pieza,posicion_meeple):
+    def introducir_meeple(self,pieza,posicion_meeple,jugador):
         if jugador.meeples > 0:
             pieza.meeple = posicion_meeple
             jugador.meeples -= 1

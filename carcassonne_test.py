@@ -459,6 +459,38 @@ class Test_basico(unittest.TestCase):
         self.assertEqual(lista_ordenada_aux[0], lista_ordenada[0])
 
 
+  #Test para comprobar si un jugador puede introducir un meeple a una pieza del tablero
+    def test_introducir_meeple(self):
+        lista_nombres =['Paco','Ana','Laura','Pepe']
+        partida = Partida().inicializar(lista_nombres)
+        turno = 1
+        pieza = Partida().sacar_pieza(lista_nombres, turno)
+        jugador1 = partida.jugadores[turno -1]
+        self.assertEqual(True, partida.introducir_meeple(pieza,2,jugador1))
+
+  #Test para comprobar si un jugador puede introducir un meeple a una pieza del tablero
+    def test_introducir_meeple2(self):
+        lista_nombres =['Paco','Ana','Laura','Pepe']
+        partida = Partida().inicializar(lista_nombres)
+        turno = 1
+        pieza = Partida().sacar_pieza(lista_nombres, turno)
+        jugador1 = partida.jugadores[turno -1]
+        n_meeples = jugador1.meeples
+        partida.introducir_meeple(pieza,2,jugador1)
+        self.assertEqual(n_meeples - 1,jugador1.meeples)
+
+
+    #Test para comprobar si un jugador al introducir un meeple en una pieza del
+    #tablero se queda con un meeple menos de los que tenia
+    def test_introducir_meeple3(self):
+        lista_nombres =['Paco','Ana','Laura','Pepe']
+        partida = Partida().inicializar(lista_nombres)
+        turno = 1
+        pieza = Partida().sacar_pieza(lista_nombres, turno)
+        jugador1 = partida.jugadores[turno -1]
+        jugador1.meeples = 0
+        self.assertEqual(False, partida.introducir_meeple(pieza,2,jugador1))
+
 
 if __name__ == '__main__':
     unittest.main()
