@@ -72,7 +72,7 @@ class Partida:
         self.baraja.pop(turno-1)
         return pieza_sacada
 
-   #Funcion para obtener cual es la pieza que ya está en el tablero
+   #Funcion para obtener cual es la pieza que ya esta en el tablero
     def ver_pieza_tablero (self, coords):
         tablero = self.tablero
         for j in len(tablero):
@@ -97,8 +97,6 @@ class Partida:
             self.tablero.append(pieza_colocar)
         else:
             return False
-        
-    
     
     #Introducir meeple en una ficha del tablero
     def introducir_meeple(self,pieza,posicion_meeple,jugador):
@@ -108,6 +106,8 @@ class Partida:
             return True
         else:
             return False
+        
+    
 
 class Jugador:
 
@@ -172,43 +172,43 @@ class Pieza_terreno:
     # corresponderia con la parte ['Norte','Este','Sur','Oeste'] de la pieza
     def asignar_posicion(self, tipo):
         if tipo == 1:
-            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Camino','Granja']
+            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Camino','Granja','']
         elif tipo == 2:
-            posicion = ['Camino','Granja','Granja','Granja','Camino','Granja','Granja','Granja']
+            posicion = ['Camino','Granja','Granja','Granja','Camino','Granja','Granja','Granja','']
         elif tipo == 3:
-            posicion = ['Castillo','Castillo','Camino','Granja','Camino','Castillo','Castillo','Castillo']
+            posicion = ['Castillo','Castillo','Camino','Granja','Camino','Castillo','Castillo','Castillo','']
         elif tipo == 4:
-            posicion = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo']
+            posicion = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo','']
         elif tipo == 5:
-            posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Granja','Granja','Granja']
+            posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Granja','Granja','Granja','']
         elif tipo == 6:
-            posicion = ['Castillo','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo']
+            posicion = ['Castillo','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo','']
         elif tipo == 7:
-            posicion = ['Granja','Granja','Camino','Granja','Camino','Granja','Camino','Granja']
+            posicion = ['Granja','Granja','Camino','Granja','Camino','Granja','Camino','Granja','']
         elif tipo == 8:
-            posicion = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+            posicion = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja','Monasterio']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
         elif tipo == 9:
-            posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo']
+            posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo','']
         elif tipo == 10:
-            posicion = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Granja','Granja']
+            posicion = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Granja','Granja','']
         elif tipo == 11:
-            posicion = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Camino','Granja']
+            posicion = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Camino','Granja','']
         elif tipo == 12:
-            posicion = ['Castillo','Castillo','Castillo','Castillo','Camino','Castillo','Castillo','Castillo']
+            posicion = ['Castillo','Castillo','Castillo','Castillo','Camino','Castillo','Castillo','Castillo','']
         elif tipo == 13:
-            posicion = ['Castillo','Castillo','Camino','Granja','Camino','Granja','Granja','Castillo']
+            posicion = ['Castillo','Castillo','Camino','Granja','Camino','Granja','Granja','Castillo','']
         elif tipo == 14:
-            posicion = ['Camino','Castillo','Castillo','Castillo','Granja','Granja','Camino','Granja']
+            posicion = ['Camino','Castillo','Castillo','Castillo','Granja','Granja','Camino','Granja','']
         elif tipo == 15:
-            posicion = ['Castillo','Castillo','Granja','Castillo','Castillo','Castillo','Granja','Castillo']
+            posicion = ['Castillo','Castillo','Granja','Castillo','Castillo','Castillo','Granja','Castillo','']
         elif tipo == 16:
-            posicion = ['Granja','Castillo','Castillo','Castillo','Castillo','Castillo','Granja','Granja']
+            posicion = ['Granja','Castillo','Castillo','Castillo','Castillo','Castillo','Granja','Granja','']
         elif tipo == 17:
-            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja','Monasterio']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
         elif tipo == 18:
-            posicion = ['Camino','Granja','Camino','Granja','Camino','Granja','Camino','Granja']
+            posicion = ['Camino','Granja','Camino','Granja','Camino','Granja','Camino','Granja','']
         elif tipo == 19:
-            posicion = ['Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo']
+            posicion = ['Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','']
         return posicion
 
     # Inicializa la clase pieza territorio
@@ -224,4 +224,3 @@ class Pieza_terreno:
         self.meeples = None
         # Jugador que ha colocado la pieza
         self.jugador = None
-

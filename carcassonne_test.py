@@ -67,115 +67,115 @@ class Test_basico(unittest.TestCase):
 
     # Test para comprobar que la posicion de la pieza de tipo 1 se inicializa correctamente
     def test_inicializar_pieza1(self):
-        pieza1 = ['Granja','Granja','Granja','Granja','Camino','Granja','Camino','Granja']
+        pieza1 = ['Granja','Granja','Granja','Granja','Camino','Granja','Camino','Granja','']
         pieza = Pieza_terreno(1)
         self.assertItemsEqual(pieza1, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 2 se inicializa correctamente
     def test_inicializar_pieza2(self):
-        pieza2 = ['Camino','Granja','Granja','Granja','Camino','Granja','Granja','Granja']
+        pieza2 = ['Camino','Granja','Granja','Granja','Camino','Granja','Granja','Granja','']
         pieza = Pieza_terreno(2)
         self.assertItemsEqual(pieza2, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 3 se inicializa correctamente
     def test_inicializar_pieza3(self):
-        pieza3 = ['Castillo','Castillo','Camino','Granja','Camino','Castillo','Castillo','Castillo']
+        pieza3 = ['Castillo','Castillo','Camino','Granja','Camino','Castillo','Castillo','Castillo','']
         pieza = Pieza_terreno(3)
         self.assertItemsEqual(pieza3, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 4 se inicializa correctamente
     def test_inicializar_pieza4(self):
-        pieza4 = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo']
+        pieza4 = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo','']
         pieza = Pieza_terreno(4)
         self.assertItemsEqual(pieza4, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 5 se inicializa correctamente
     def test_inicializar_pieza5(self):
-        pieza5 = ['Granja','Castillo','Castillo','Castillo','Granja','Granja','Granja','Granja']
+        pieza5 = ['Granja','Castillo','Castillo','Castillo','Granja','Granja','Granja','Granja','']
         pieza = Pieza_terreno(5)
         self.assertItemsEqual(pieza5, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 6 se inicializa correctamente
     def test_inicializar_pieza6(self):
-        pieza6 = ['Castillo','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo']
+        pieza6 = ['Castillo','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo','']
         pieza = Pieza_terreno(6)
         self.assertItemsEqual(pieza6, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 7 se inicializa correctamente
     def test_inicializar_pieza7(self):
-        pieza7 = ['Granja','Granja','Camino','Granja','Camino','Granja','Camino','Granja']
+        pieza7 = ['Granja','Granja','Camino','Granja','Camino','Granja','Camino','Granja','']
         pieza = Pieza_terreno(7)
         self.assertItemsEqual(pieza7, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 8 se inicializa correctamente
     def test_inicializar_pieza8(self):
-        pieza8 = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja'] ##ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+        pieza8 = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja','Monasterio'] ##ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
         pieza = Pieza_terreno(8)
         self.assertItemsEqual(pieza8, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 9 se inicializa correctamente
     def test_inicializar_pieza9(self):
-        pieza9 = ['Granja','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo']
+        pieza9 = ['Granja','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo','']
         pieza = Pieza_terreno(9)
         self.assertItemsEqual(pieza9, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 10 se inicializa correctamente
     def test_inicializar_pieza10(self):
-        pieza10 = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Granja','Granja']
+        pieza10 = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Granja','Granja','']
         pieza = Pieza_terreno(10)
         self.assertItemsEqual(pieza10, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 11 se inicializa correctamente
     def test_inicializar_pieza11(self):
-        pieza11 = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Camino','Granja']
+        pieza11 = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Camino','Granja','']
         pieza = Pieza_terreno(11)
         self.assertItemsEqual(pieza11, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 12 se inicializa correctamente
     def test_inicializar_pieza12(self):
-        pieza12 = ['Castillo','Castillo','Castillo','Castillo','Camino','Castillo','Castillo','Castillo']
+        pieza12 = ['Castillo','Castillo','Castillo','Castillo','Camino','Castillo','Castillo','Castillo','']
         pieza = Pieza_terreno(12)
         self.assertItemsEqual(pieza12, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 13 se inicializa correctamente
     def test_inicializar_pieza13(self):
-        pieza13 = ['Castillo','Castillo','Camino','Granja','Camino','Granja','Granja','Castillo']
+        pieza13 = ['Castillo','Castillo','Camino','Granja','Camino','Granja','Granja','Castillo','']
         pieza = Pieza_terreno(13)
         self.assertItemsEqual(pieza13, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 14 se inicializa correctamente
     def test_inicializar_pieza14(self):
-        pieza14 = ['Camino','Castillo','Castillo','Castillo','Granja','Granja','Camino','Granja']
+        pieza14 = ['Camino','Castillo','Castillo','Castillo','Granja','Granja','Camino','Granja','']
         pieza = Pieza_terreno(14)
         self.assertItemsEqual(pieza14, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 15 se inicializa correctamente
     def test_inicializar_pieza15(self):
-        pieza15 = ['Castillo','Castillo','Granja','Castillo','Castillo','Castillo','Granja','Castillo']
+        pieza15 = ['Castillo','Castillo','Granja','Castillo','Castillo','Castillo','Granja','Castillo','']
         pieza = Pieza_terreno(15)
         self.assertItemsEqual(pieza15, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 16 se inicializa correctamente
     def test_inicializar_pieza16(self):
-        pieza16 = ['Granja','Castillo','Castillo','Castillo','Castillo','Castillo','Granja','Granja']
+        pieza16 = ['Granja','Castillo','Castillo','Castillo','Castillo','Castillo','Granja','Granja','']
         pieza = Pieza_terreno(16)
         self.assertItemsEqual(pieza16, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 17 se inicializa correctamente
     def test_inicializar_pieza17(self):
-        pieza17 = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja'] ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+        pieza17 = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja','Monasterio'] ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
         pieza = Pieza_terreno(17)
         self.assertItemsEqual(pieza17, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 18 se inicializa correctamente
     def test_inicializar_pieza18(self):
-        pieza18 = ['Camino','Granja','Camino','Granja','Camino','Granja','Camino','Granja']
+        pieza18 = ['Camino','Granja','Camino','Granja','Camino','Granja','Camino','Granja','']
         pieza = Pieza_terreno(18)
         self.assertItemsEqual(pieza18, pieza.posicion)
 
     # Test para comprobar que la posicion de la pieza de tipo 19 se inicializa correctamente
     def test_inicializar_pieza19(self):
-        pieza19 = ['Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo']
+        pieza19 = ['Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','']
         pieza = Pieza_terreno(19)
         self.assertItemsEqual(pieza19, pieza.posicion)
 
@@ -387,7 +387,7 @@ class Test_basico(unittest.TestCase):
     def test_long_sacar_pieza(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza = partida.sacar_pieza()
-        self.assertEqual(len(pieza.posicion), 8, msg="No tiene la longitud adecuada")
+        self.assertEqual(len(pieza.posicion), 9, msg="No tiene la longitud adecuada")
 
     def test_tipo_sacar_pieza(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
