@@ -495,6 +495,11 @@ class Test_basico(unittest.TestCase):
         jugador1.meeples = 0
         self.assertEqual(False, partida.introducir_meeple(pieza,2,jugador1))
 
+    #Test para comprobar que el numero de monasterios sea correcto
+    def test_comprobar_monasterio(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        monasterios = partida.comprobar_cierre_monasterio()
+        self.assertGreaterEqual(monasterios, 0, msg="Numero inconrrecto de monasterios")
 
 if __name__ == '__main__':
     unittest.main()

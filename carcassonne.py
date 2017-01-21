@@ -107,7 +107,20 @@ class Partida:
         else:
             return False
         
-    
+    def comprobar_cierre_monasterio(self):
+        num_monast = self.buscar_monaterios_en_tablero()
+        numero_monasterios = len(num_monast)
+
+    def buscar_monaterios_en_tablero(self):
+        tablero = self.tablero
+        monasterios = []
+        for k in range(len(tablero)):
+            if tablero[k].posicion[8] == 'Monasterio':
+                pieza_monasterio = tablero[k]
+                monasterios.append(pieza_monasterio)
+            else:
+                pass
+        return monasterios
 
 class Jugador:
 
