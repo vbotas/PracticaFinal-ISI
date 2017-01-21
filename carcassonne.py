@@ -94,6 +94,8 @@ class Partida:
         if comprobar_pieza != []:
             return False
         elif (pieza_norte.posicion[2] == pieza_colocar.posicion[0] and pieza_oeste.posicion[3] == pieza_colocar.posicion[1] and pieza_sur.posicion[0] == pieza_colocar.posicion[2] and pieza_este.posicion[1] == pieza_colocar.posicion[3]) and (pieza_norte ==[] or pieza_oeste == [] or pieza_sur==[] or pieza_este==[]):
+            pieza_colocar.jugador = self.jugadores[self.turno % len(self.jugadores)-1]
+            pieza_colocar.coordenadas = coordenadas_colocar
             self.tablero.append(pieza_colocar)
         else:
             return False
