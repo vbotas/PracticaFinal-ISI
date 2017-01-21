@@ -407,33 +407,31 @@ class Test_basico(unittest.TestCase):
         jugador2 = 'Guillermo'
         jugador3 = 'Adrian'
         jugadores = Partida().inicializar_jugadores([jugador1, jugador2, jugador3])
-	    puntuacion1 = 90
-	    puntuacion2 = 120
-	    puntuacion3 = 110
-	    jugadores[0].actualizar_puntuacion(puntuacion1)
-	    jugadores[1].actualizar_puntuacion(puntuacion2)
-	    jugadores[2].actualizar_puntuacion(puntuacion3)
-
-	    self.assertEqual(puntuacion1, jugadores[0].puntuacion)
+        puntuacion1 = 90
+        puntuacion2 = 120
+        puntuacion3 = 110
+        jugadores[0].actualizar_puntuacion(puntuacion1)
+        jugadores[1].actualizar_puntuacion(puntuacion2)
+        jugadores[2].actualizar_puntuacion(puntuacion3)
+        self.assertEqual(puntuacion1, jugadores[0].puntuacion)
         self.assertEqual(puntuacion2, jugadores[1].puntuacion)
-	    self.assertEqual(puntuacion3, jugadores[2].puntuacion)
+        self.assertEqual(puntuacion3, jugadores[2].puntuacion)
 
     #Test para actualizar puntuacion, observando que suma correctamente
     def test_actualizar_puntuacion2(self):
         jugadores = Partida().inicializar_jugadores(['Cristina', 'Guillermo', 'Adrian'])
-	    puntuacion1 = 90
-	    puntuacion2 = 120
-	    puntuacion3 = 110
-	    jugadores[0].actualizar_puntuacion(puntuacion1)
-	    jugadores[1].actualizar_puntuacion(puntuacion2)
-	    jugadores[2].actualizar_puntuacion(puntuacion3)
-
+        puntuacion1 = 90
+        puntuacion2 = 120
+        puntuacion3 = 110
+        jugadores[0].actualizar_puntuacion(puntuacion1)
+        jugadores[1].actualizar_puntuacion(puntuacion2)
+        jugadores[2].actualizar_puntuacion(puntuacion3)
         jugadores[0].actualizar_puntuacion(50)
-	    jugadores[1].actualizar_puntuacion(100)
-	    jugadores[2].actualizar_puntuacion(200)
-	    self.assertEqual(puntuacion1 + 50, jugadores[0].puntuacion)
+        jugadores[1].actualizar_puntuacion(100)
+        jugadores[2].actualizar_puntuacion(200)
+        self.assertEqual(puntuacion1 + 50, jugadores[0].puntuacion)
         self.assertEqual(puntuacion2 + 100, jugadores[1].puntuacion)
-	    self.assertEqual(puntuacion3 + 200, jugadores[2].puntuacion)
+        self.assertEqual(puntuacion3 + 200, jugadores[2].puntuacion)
 
     #Test para comprobar que se ordenan los jugadores en funcion de su puntuacion
     def test_ordenar_jug_puntos(self):

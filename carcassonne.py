@@ -15,7 +15,6 @@ class Partida:
 
     # Comprueba que el nombre de los jugadores sea correcto
     def nombres_jug_correcto(self, nombres_jugadores):
-
         # Cuento la frecuencia de repeticion de los nombres
         freq = collections.Counter(nombres_jugadores).values()
         if max(freq) > 1:
@@ -238,3 +237,5 @@ class Pieza_terreno:
         # self.meeples toma el valor de la parte en la que se coloca:
         # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
         self.meeples = None
+        # Jugador que ha colocado la pieza
+        self.jugador = None
