@@ -38,13 +38,6 @@ class Partida:
             baraja += Pieza_terreno(i+1).repetir_pieza()
         return baraja
 
-    def sacar_pieza(self):
-        pieza_sacada= []
-        turno = len(self.tablero)
-        pieza_sacada = self.baraja[turno-1]
-        self.baraja.pop(turno-1)
-        return pieza_sacada
-
     # Inicializa el tablero
     def inicializar_tablero(self):
         tipo_pieza_inicial = 10
@@ -71,6 +64,14 @@ class Partida:
     def orden_jugadores_ptos(self,lista_jugadores):
         lista_jugadores_aux = sorted(lista_jugadores, key = lambda objeto: objeto.puntuacion, reverse = True)
         return lista_jugadores_aux
+
+    # Saca una pieza de la baraja
+    def sacar_pieza(self):
+        pieza_sacada= []
+        turno = len(self.tablero)
+        pieza_sacada = self.baraja[turno-1]
+        self.baraja.pop(turno-1)
+        return pieza_sacada
 
     # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.
     def poner_pieza (self, nombres_jugadores, turno,array_colocacion, pieza_tablero):
