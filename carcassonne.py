@@ -188,43 +188,43 @@ class Pieza_terreno:
     # corresponderia con la parte ['Norte','Este','Sur','Oeste'] de la pieza
     def asignar_posicion(self, tipo):
         if tipo == 1:
-            posicion = ['Granja','Granja','Camino','Camino']
+            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Camino','Granja']
         elif tipo == 2:
-            posicion = ['Camino','Granja','Camino','Granja']
+            posicion = ['Camino','Granja','Granja','Granja','Camino','Granja','Granja','Granja']
         elif tipo == 3:
-            posicion = ['Castillo','Camino','Camino','Castillo']
+            posicion = ['Castillo','Castillo','Camino','Granja','Camino','Castillo','Castillo','Castillo']
         elif tipo == 4:
-            posicion = ['Castillo','Granja','Granja','Castillo']
+            posicion = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo']
         elif tipo == 5:
-            posicion = ['Granja','Castillo','Granja','Granja']
+            posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Granja','Granja','Granja']
         elif tipo == 6:
-            posicion = ['Castillo','Castillo','Granja','Castillo']
+            posicion = ['Castillo','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo']
         elif tipo == 7:
-            posicion = ['Granja','Camino','Camino','Camino']
+            posicion = ['Granja','Granja','Camino','Granja','Camino','Granja','Camino','Granja']
         elif tipo == 8:
-            posicion = ['Granja','Granja','Granja','Granja']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+            posicion = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
         elif tipo == 9:
-            posicion = ['Granja','Castillo','Granja','Castillo']
+            posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo']
         elif tipo == 10:
-            posicion = ['Camino','Castillo','Camino','Granja']
+            posicion = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Granja','Granja']
         elif tipo == 11:
-            posicion = ['Camino','Castillo','Camino','Camino']
+            posicion = ['Camino','Castillo','Castillo','Castillo','Camino','Granja','Camino','Granja']
         elif tipo == 12:
-            posicion = ['Castillo','Castillo','Camino','Castillo']
+            posicion = ['Castillo','Castillo','Castillo','Castillo','Camino','Castillo','Castillo','Castillo']
         elif tipo == 13:
-            posicion = ['Castillo','Camino','Camino','Granja']
+            posicion = ['Castillo','Castillo','Camino','Granja','Camino','Granja','Granja','Castillo']
         elif tipo == 14:
-            posicion = ['Camino','Castillo','Granja','Camino']
+            posicion = ['Camino','Castillo','Castillo','Castillo','Granja','Granja','Camino','Granja']
         elif tipo == 15:
-            posicion = ['Castillo','Granja','Castillo','Granja']
+            posicion = ['Castillo','Castillo','Granja','Castillo','Castillo','Castillo','Granja','Castillo']
         elif tipo == 16:
-            posicion = ['Granja','Castillo','Castillo','Granja']
+            posicion = ['Granja','Castillo','Castillo','Castillo','Castillo','Castillo','Granja','Granja']
         elif tipo == 17:
-            posicion = ['Granja','Granja','Camino','Granja']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
         elif tipo == 18:
-            posicion = ['Camino','Camino','Camino','Camino']
+            posicion = ['Camino','Granja','Camino','Granja','Camino','Granja','Camino','Granja']
         elif tipo == 19:
-            posicion = ['Castillo','Castillo','Castillo','Castillo']
+            posicion = ['Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo','Castillo']
         return posicion
 
     # Inicializa la clase pieza territorio

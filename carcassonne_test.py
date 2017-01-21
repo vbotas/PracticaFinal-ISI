@@ -85,7 +85,7 @@ class Test_basico(unittest.TestCase):
 
     # Test para comprobar que la posicion de la pieza de tipo 4 se inicializa correctamente
     def test_inicializar_pieza4(self):
-        pieza3 = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo']
+        pieza4 = ['Castillo','Castillo','Granja','Granja','Granja','Castillo','Castillo','Castillo']
         pieza = Pieza_terreno(4)
         self.assertItemsEqual(pieza4, pieza.posicion)
 
@@ -387,7 +387,7 @@ class Test_basico(unittest.TestCase):
     def test_long_sacar_pieza(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza = partida.sacar_pieza()
-        self.assertEqual(len(pieza.posicion), 4, msg="No tiene la longitud adecuada")
+        self.assertEqual(len(pieza.posicion), 8, msg="No tiene la longitud adecuada")
 
     def test_tipo_sacar_pieza(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
