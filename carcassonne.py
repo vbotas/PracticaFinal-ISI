@@ -38,11 +38,11 @@ class Partida:
             baraja += Pieza_terreno(i+1).repetir_pieza()
         return baraja
 
-    def sacar_pieza(self,nombres_jugadores,turno):
+    def sacar_pieza(self):
         pieza_sacada= []
-        baraja = Partida().inicializar(nombres_jugadores).baraja
-        pieza_sacada = baraja[turno-1]
-        baraja.pop(turno-1)
+        turno = len(self.tablero)
+        pieza_sacada = self.baraja[turno-1]
+        self.baraja.pop(turno-1)
         return pieza_sacada
 
     # Inicializa el tablero
