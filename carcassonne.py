@@ -72,49 +72,34 @@ class Partida:
         self.baraja.pop(turno-1)
         return pieza_sacada
 
-    # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.
-    def poner_pieza (self, nombres_jugadores, turno,array_colocacion, pieza_tablero):
-        """ La idea del array es que se nos pase donde se quiere colocar la pieza, es decir,
-        array_colocacion = [1,0,0,0], quiere colocarlo encima
-        array_colocacion = [0,1,0,0], quiere colocarlo a la derecha
-        array_colocacion = [0,0,1,0], quiere colocarlo debajo
-        array_colocacion = [0,0,0,1], quiere colocarlo a la izda.
-        Nos pasan tambien cual es la pieza que estara ya colocada, por lo que comprobamos si se puede colocar"""
-        self.array_colocacion = array_colocacion
-        self.pieza_tablero = pieza_tablero
-        tablero = self.inicializar_tablero()
-        pieza_colocada = self.sacar_pieza(nombres_jugadores, turno)
-
-        if self.array_colocacion == [1,0,0,0]:
-            #Comprobamos que la posicion "0" de la pieza ya colocada, es igual a la posicion "2" de la pieza que queremos colocar
-            if self.pieza_tablero[0] == pieza_colocada.posicion[2]:
-                return True
+   #Funcion para obtener cual es la pieza que ya está en el tablero
+    def ver_pieza_tablero (self, coords):
+        tablero = self.tablero
+        for j in len(tablero):
+            if coords == tablero[j].coordenadas:
+                pieza_tablero = tablero[j].posicion
             else:
-                return False
-
-        elif self.array_colocacion == [0,1,0,0]:
-            #Comprobamos que la posicion "1" de la pieza ya colocada, es igual a la posicion "3" de la pieza que queremos colocar
-            if self.pieza_tablero[1] == pieza_colocada.posicion[3]:
-                return True
-            else:
-                return False
-
-        elif self.array_colocacion == [0,0,1,0]:
-            #Comprobamos que la posicion "2" de la pieza ya colocada, es igual a la posicion "0" de la pieza que queremos colocar
-            if self.pieza_tablero[2] == pieza_colocada.posicion[0]:
-                return True
-            else:
-                return False
-
-        elif self.array_colocacion == [0,0,0,1]:
-            #Comprobamos que la posicion "3" de la pieza ya colocada, es igual a la posicion "1" de la pieza que queremos colocar
-            if self.pieza_tablero[3] == pieza_colocada.posicion[1]:
-                return True
-            else:
-                return False
+                pieza_tablero = []
+        return pieza_tablero
+    
+    # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.        
+    def poner_pieza (self, pieza_colocar, coordenadas_colocar):
+        coord_x = coordenadas_colocar[0]
+        coord_y = coordenadas_colocar[1]
+        pieza_norte = self.ver_pieza_tablero([coord_x, coord_y-1])
+        pieza_oeste = self.ver_pieza_tablero([coord_x+1, coord_y])
+        pieza_sur = self.ver_pieza_tablero([coord_x, coord_y +1])
+        pieza_este = self.ver_pieza_tablero([coord_x-1, coord_y])
+        comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
+        if comprobar_pieza != []:
+            return False
+        elif (pieza_norte.posicion[2] == pieza_colocar.posicion[0] and pieza_oeste.posicion[3] == pieza_colocar.posicion[1] and pieza_sur.posicion[0] == pieza_colocar.posicion[2] and pieza_este.posicion[1] == pieza_colocar.posicion[3]) and (pieza_norte ==[] or pieza_oeste == [] or pieza_sur==[] or pieza_este==[]):
+            self.tablero.append(pieza_colocar)
         else:
             return False
-
+        
+    
+    
     #Introducir meeple en una ficha del tablero
     def introducir_meeple(self,pieza,posicion_meeple,jugador):
         if jugador.meeples > 0:
@@ -239,3 +224,4 @@ class Pieza_terreno:
         self.meeples = None
         # Jugador que ha colocado la pieza
         self.jugador = None
+
