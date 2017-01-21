@@ -469,8 +469,8 @@ class Test_basico(unittest.TestCase):
     def test_introducir_meeple(self):
         lista_nombres =['Paco','Ana','Laura','Pepe']
         partida = Partida().inicializar(lista_nombres)
+        pieza = partida.sacar_pieza()
         turno = 1
-        pieza = Partida().sacar_pieza(lista_nombres, turno)
         jugador1 = partida.jugadores[turno -1]
         self.assertEqual(True, partida.introducir_meeple(pieza,2,jugador1))
 
@@ -479,7 +479,7 @@ class Test_basico(unittest.TestCase):
         lista_nombres =['Paco','Ana','Laura','Pepe']
         partida = Partida().inicializar(lista_nombres)
         turno = 1
-        pieza = Partida().sacar_pieza(lista_nombres, turno)
+        pieza = partida.sacar_pieza()
         jugador1 = partida.jugadores[turno -1]
         n_meeples = jugador1.meeples
         partida.introducir_meeple(pieza,2,jugador1)
@@ -492,7 +492,7 @@ class Test_basico(unittest.TestCase):
         lista_nombres =['Paco','Ana','Laura','Pepe']
         partida = Partida().inicializar(lista_nombres)
         turno = 1
-        pieza = Partida().sacar_pieza(lista_nombres, turno)
+        pieza = partida.sacar_pieza()
         jugador1 = partida.jugadores[turno -1]
         jugador1.meeples = 0
         self.assertEqual(False, partida.introducir_meeple(pieza,2,jugador1))
