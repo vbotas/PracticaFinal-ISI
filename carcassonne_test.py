@@ -395,6 +395,12 @@ class Test_basico(unittest.TestCase):
         self.assertGreaterEqual(pieza.tipo, 0, msg="Tipo erroneo")
         self.assertLessEqual(pieza.tipo, 19, msg="Tipo erroneo")
 
+    # Test para comprobar que tras sacar una pieza la baraja reduce su tamaño
+    def test_long_baraja_sacar_pieza(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = partida.sacar_pieza()
+        self.assertEqual(partida.baraja, 70, msg="La baraja no se reduce")
+
     #Test para actualizar puntuacion
     def test_actualizar_puntuacion(self):
         jugador1 = 'Cristina'
