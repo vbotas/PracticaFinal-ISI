@@ -514,5 +514,17 @@ class Test_basico(unittest.TestCase):
         posiciones = [0, 2, 6]
         self.assertItemsEqual(posiciones, pieza.posicion_tipo_terreno_en_pieza("Castillo"))
 
+    # Comprueba la puntuacion para una secuencia concreta de camino
+    def test_comprobar_cierre_camino(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(11)
+        pieza2 = Pieza_terreno(11)
+        partida.introducir_meeple(pieza1,4,partida.jugadores[1])
+        partida.poner_pieza(pieza1, [0,1])
+        partida.poner_pieza(pieza2, [0,-1])
+        partida.comprobar_cierre_caminos()
+        self.assertEqual(3, jugadores[1].puntuacion)
+
+
 if __name__ == '__main__':
     unittest.main()
