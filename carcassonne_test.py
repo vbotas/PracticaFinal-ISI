@@ -514,6 +514,12 @@ class Test_basico(unittest.TestCase):
         posiciones = [0, 2, 6]
         self.assertItemsEqual(posiciones, pieza.posicion_tipo_terreno_en_pieza("Castillo"))
 
+    def test_comprobar_indice_jugador(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        jugador = Jugador('Ana')
+        indice_jugador = partida.buscar_ind_jugador(jugador)
+        self.assertEqual(1, indice_jugador) 
+
     # Comprueba la puntuacion para una secuencia concreta de camino
     def test_comprobar_cierre_camino(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
