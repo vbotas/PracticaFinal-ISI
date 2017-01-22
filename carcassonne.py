@@ -114,7 +114,7 @@ class Partida:
         tablero = self.tablero
         piezas_tipo = []
         for k in range(len(tablero)):
-            if tipo in tablero[k].posicion
+            if tipo in tablero[k].posicion:
                 piezas_tipo.append(tablero[k])
         return piezas_tipo
 
@@ -124,6 +124,14 @@ class Partida:
         numero_monasterios = len(monasterios)
         return numero_monasterios
 
+    # Busca el indice en el que se encuentra el jugador que se pasa en self.jugadores
+    def buscar_ind_jugador(self, jugador_buscado):
+        indice = None
+        for i in range(len(self.jugadores)):
+            if self.jugadores[i].nombre == jugador_buscado.nombre:
+                indice = i
+        return indice
+
     # Comprueba si algun camino se ha cerrado
     def comprobar_cierre_camino(self):
         caminos = self.buscar_tipo_en_tablero("Camino")
@@ -131,7 +139,7 @@ class Partida:
             # Para cada pieza de camino compruebo si participa en algun camino ya cerrado
             piezas_caminos = self.buscar_caminos_cerrados(pieza_camino) # devuelve lista de caminos cerrados
             for piezas_camino in piezas_caminos:
-                # Para cada camino cerrado, si no estaba ya contado lo añado y sumo la puntuacion
+                # Para cada camino cerrado, si no estaba ya contado lo introduzco y sumo la puntuacion
                 if (piezas_camino != []) and not (piezas_camino in self.caminos_encontrados):
                     self.caminos_encontrados.append(piezas_camino)
                     jugador = partida.jugador_con_mas_meeples(piezas_camino)
