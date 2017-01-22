@@ -524,41 +524,41 @@ class Test_basico(unittest.TestCase):
     # Test que comprueba si la funcion jugadores_con_mas_meeples funciona bien
     def test_jugador_con_mas_meeples(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
-        pieza1 = Pieza_terreno(1)
+        pieza1 = Pieza_terreno(11)
         pieza1.jugador = partida.jugadores[0]
-        pieza2 = Pieza_terreno(2)
+        pieza2 = Pieza_terreno(11)
         pieza2.jugador = partida.jugadores[1]
-        pieza3 = Pieza_terreno(3)
+        pieza3 = Pieza_terreno(11)
         pieza3.jugador = partida.jugadores[2]
-        pieza2.meeples = 1
-        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3])
+        pieza2.meeples = 0
+        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3],"Camino")
         self.assertEqual('Ana',jugadores[0].nombre)
 
     # Test que comprueba si la funcion jugador_con_mas_meeples funciona bien
     def test_jugador_con_mas_meeples2(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
-        pieza1 = Pieza_terreno(1)
+        pieza1 = Pieza_terreno(11)
         pieza1.jugador = partida.jugadores[2]
-        pieza2 = Pieza_terreno(2)
+        pieza2 = Pieza_terreno(11)
         pieza2.jugador = partida.jugadores[1]
-        pieza3 = Pieza_terreno(3)
+        pieza3 = Pieza_terreno(11)
         pieza3.jugador = partida.jugadores[2]
-        pieza1.meeples = 1
-        pieza2.meeples = 1
-        pieza3.meeples = 2
-        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3])
+        pieza1.meeples = 0
+        pieza2.meeples = 0
+        pieza3.meeples = 0
+        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3],"Camino")
         self.assertEqual('Maria',jugadores[0].nombre)
 
     # Test que comprueba si la funcion jugador_con_mas_meeples funciona bien
-    def test_jugador_con_mas_meeples2(self):
+    def test_jugador_con_mas_meeples3(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
-        pieza1 = Pieza_terreno(1)
+        pieza1 = Pieza_terreno(11)
         pieza1.jugador = partida.jugadores[2]
-        pieza2 = Pieza_terreno(2)
+        pieza2 = Pieza_terreno(11)
         pieza2.jugador = partida.jugadores[1]
-        pieza1.meeples = 1
-        pieza2.meeples = 1
-        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2])
+        pieza1.meeples = 0
+        pieza2.meeples = 0
+        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2],"Camino")
         self.assertEqual('Ana',jugadores[0].nombre)
         self.assertEqual('Maria',jugadores[1].nombre)
 

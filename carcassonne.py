@@ -133,11 +133,12 @@ class Partida:
         return indice
 
     # Devuelve el/los jugador/es que mas meeples tienen en una lista de piezas que se le pasa
-    def jugadores_con_mas_meeples(self, piezas):
+    def jugadores_con_mas_meeples(self, piezas, tipo_terreno):
         jugadores = []
         nombres_jugadores = [] # array con los nombres de los jugadores con meeple (se pueden repetir)
         for pieza in piezas:
-            if pieza.meeples != None:
+            posiciones = pieza.posicion_tipo_terreno_en_pieza(tipo_terreno)
+            if pieza.meeples in posiciones:
                 nombres_jugadores.append(pieza.jugador.nombre)
         if len(nombres_jugadores) > 1:
             # Si hay mas de un jugador con meeples me quedo con el que mas tenga
@@ -152,6 +153,9 @@ class Partida:
             jugadores.append(self.jugadores[ind_jugador])
         return jugadores
 
+    # Funcion que busca si una pieza del camino forma parte de un camino cerrado
+    def buscar_caminos_cerrados(self, pieza):
+        pass
 
     # Comprueba si algun camino se ha cerrado
     def comprobar_cierre_camino(self):
