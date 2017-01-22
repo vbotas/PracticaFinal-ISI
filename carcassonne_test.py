@@ -514,11 +514,34 @@ class Test_basico(unittest.TestCase):
         posiciones = [0, 2, 6]
         self.assertItemsEqual(posiciones, pieza.posicion_tipo_terreno_en_pieza("Castillo"))
 
+    # Test que comprueba que la funcion buscar_ind_jugador funciona correctamente
     def test_comprobar_indice_jugador(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         jugador = Jugador('Ana')
         indice_jugador = partida.buscar_ind_jugador(jugador)
         self.assertEqual(1, indice_jugador) 
+
+    # Test que comprueba si la funcion jugadores_con_mas_meeples funciona bien
+    def test_jugador_con_mas_meeples(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(1)
+        pieza2 = Pieza_terreno(2)
+        pieza3 = Pieza_terreno(3)
+        partida.introducir_meeple(pieza2,1,partida.jugadores[1])
+        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3])
+        self.assertEqual('Ana',jugadores[0].nombre)
+
+    # Test que comprueba si la funcion jugador_con_mas_meeples funciona bien
+    def test_jugador_con_mas_meeples2(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(1)
+        pieza2 = Pieza_terreno(2)
+        pieza3 = Pieza_terreno(3)
+        partida.introducir_meeple(pieza2,1,partida.jugadores[1])
+        partida.introducir_meeple(pieza1,1,partida.jugadores[2])
+        partida.introducir_meeple(pieza3,2,partida.jugadores[2])
+        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3])
+        self.assertEqual('Maria',jugadores[0].nombre)
 
     # Comprueba la puntuacion para una secuencia concreta de camino
     def test_comprobar_cierre_camino(self):
