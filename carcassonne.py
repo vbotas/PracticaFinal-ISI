@@ -171,16 +171,18 @@ class Partida:
         numero_monasterios = len(monasterios)
         return numero_monasterios
     
-    def sumar_puntos_monasterio(self,jugador):
-        numero_monasterios = self.comprobar_cierre_monasterio()
-        jugador.actualizar_puntuacion(9*numero_monasterios)
-        monasterios = self.buscar_tipo_en_tablero("Monasterio")
-        for mon in range(len(monasterios)):
-            if monasterios[mon].meeples == 8:
-                monasterios[mon].meeples = None
-                jugador.meeples += 1
-        return jugador.puntuacion
-                 
+    def sumar_puntos_monasterio(self):
+        piezas_monasterio = self.buscar_tipo_en_tablero("Monasterio")
+        for mon in piezas_monasterio:
+            jugador_monasterio = piezas_monasterio[mon].jugador
+            puntos = 9
+            jugador_monasterio.actualizar_puntuacion(puntos)
+            if piezas_monasterio[mon].meeples==8:
+                #Se devuelve el meeple al jugador y se elimina de la pieza
+                jugador_monasterio.meeples += 1
+                piezas_monasterio[mon].meeples = None
+            return jugador_monasterio.puntuacion
+            
         
 
     # Busca el indice en el que se encuentra el jugador que se pasa en self.jugadores
