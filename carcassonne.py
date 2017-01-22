@@ -110,6 +110,7 @@ class Partida:
     def comprobar_cierre_monasterio(self):
         num_monast = self.buscar_monaterios_en_tablero()
         numero_monasterios = len(num_monast)
+        return numero_monasterios
 
     def buscar_monaterios_en_tablero(self):
         tablero = self.tablero
