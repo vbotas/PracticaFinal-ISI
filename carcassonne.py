@@ -75,7 +75,7 @@ class Partida:
    #Funcion para obtener cual es la pieza que ya esta en el tablero
     def ver_pieza_tablero (self, coords):
         tablero = self.tablero
-        for j in len(tablero):
+        for j in range(len(tablero)):
             if coords == tablero[j].coordenadas:
                 pieza_tablero = tablero[j].posicion
             else:
@@ -87,16 +87,37 @@ class Partida:
         coord_x = coordenadas_colocar[0]
         coord_y = coordenadas_colocar[1]
         pieza_norte = self.ver_pieza_tablero([coord_x, coord_y-1])
-        pieza_oeste = self.ver_pieza_tablero([coord_x+1, coord_y])
+        pieza_oeste = self.ver_pieza_tablero([coord_x-1, coord_y])
         pieza_sur = self.ver_pieza_tablero([coord_x, coord_y +1])
-        pieza_este = self.ver_pieza_tablero([coord_x-1, coord_y])
+        pieza_este = self.ver_pieza_tablero([coord_x+1, coord_y])
         comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
         if comprobar_pieza != []:
             return False
-        elif (pieza_norte.posicion[2] == pieza_colocar.posicion[0] and pieza_oeste.posicion[3] == pieza_colocar.posicion[1] and pieza_sur.posicion[0] == pieza_colocar.posicion[2] and pieza_este.posicion[1] == pieza_colocar.posicion[3]) and (pieza_norte ==[] or pieza_oeste == [] or pieza_sur==[] or pieza_este==[]):
+        elif (self.se_puede_poner_norte(pieza_norte, pieza_colocar) and self.se_puede_poner_este(pieza_este, pieza_colocar) and self.se_puede_poner_sur(pieza_sur, pieza_colocar) and self.se_puede_poner_oeste(pieza_oeste, pieza_colocar)) and (pieza_norte != [] or pieza_este !=[] or pieza_sur !=[] or pieza_oeste !=[]):
             pieza_colocar.jugador = self.jugadores[self.turno % len(self.jugadores)-1]
             pieza_colocar.coordenadas = coordenadas_colocar
             self.tablero.append(pieza_colocar)
+        else:
+            return False
+    
+    def se_puede_poner_norte (self, pieza_norte, pieza_colocar):
+        if (pieza_norte[4] == pieza_colocar.posicion[0]) or (pieza_norte == []):
+            return True
+        else:
+            return False
+    def se_puede_poner_este (self, pieza_este, pieza_colocar):
+        if (pieza_este[6] == pieza_colocar.posicion[2]) or (pieza_este == []):
+            return True
+        else:
+            return False
+    def se_puede_poner_sur(self, pieza_sur, pieza_colocar):
+        if (pieza_sur[0] == pieza_colocar.posicion[4]) or (pieza_sur == []):
+            return True
+        else:
+            return False
+    def se_puede_poner_oeste(self, pieza_oeste, pieza_colocar):
+        if (pieza_oeste[2] == pieza_colocar[6]) or (pieza_oeste == []):
+            return True
         else:
             return False
     

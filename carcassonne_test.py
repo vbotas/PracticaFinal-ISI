@@ -571,7 +571,7 @@ class Test_basico(unittest.TestCase):
         partida.poner_pieza(pieza1, [0,1])
         partida.poner_pieza(pieza2, [0,-1])
         partida.comprobar_cierre_caminos()
-        self.assertEqual(3, jugadores[1].puntuacion)
+        self.assertEqual(3, self.jugadores[1].puntuacion)
 
 
 if __name__ == '__main__':
