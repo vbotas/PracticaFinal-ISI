@@ -501,5 +501,18 @@ class Test_basico(unittest.TestCase):
         monasterios = partida.comprobar_cierre_monasterio()
         self.assertGreaterEqual(monasterios, 0, msg="Numero inconrrecto de monasterios")
 
+    # Test que comprueba que la funcion posicion_tipo_terreno_en_pieza devuelve un numero
+    # correcto
+    def test_comprobar_long_num_caminos_en_pieza(self):
+        pieza = Pieza_terreno(7)
+        self.assertEqual(3, len(Partida().posicion_tipo_terreno_en_pieza(pieza,"Camino")))
+
+    # Test que comprueba que la funcion posicion_tipo_terreno_en_pieza devuelve las posiciones
+    # correctas
+    def test_comprobar_long_num_caminos_en_pieza(self):
+        pieza = Pieza_terreno(12)
+        posiciones = [0, 2, 6]
+        self.assertItemsEqual(posiciones, Partida().posicion_tipo_terreno_en_pieza(pieza,"Castillo")))
+
 if __name__ == '__main__':
     unittest.main()
