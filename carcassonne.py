@@ -56,7 +56,7 @@ class Partida:
         self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
         random.shuffle(self.baraja)  # aleatorizo la baraja
         self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
-
+        self.caminos_encontrados = []  # lista con los caminos que se encontraron
         return self
 
     # Ordenar los jugadores en funcion de la puntuacion de cada uno de ellos
