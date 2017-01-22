@@ -51,7 +51,7 @@ class Partida:
             return "Numero de jugadores incorrecto. Solo pueden jugar entre 2 y 4 personas"
         if not self.nombres_jug_correcto(nombres_jugadores):
             return "No se puede repetir el nombre de dos jugadores"
-        turno = 1
+        self.turno = 1
         self.jugadores = self.inicializar_jugadores(nombres_jugadores)
         self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
         random.shuffle(self.baraja)  # aleatorizo la baraja
@@ -77,7 +77,7 @@ class Partida:
         tablero = self.tablero
         for j in range(len(tablero)):
             if coords == tablero[j].coordenadas:
-                pieza_tablero = tablero[j].posicion
+                pieza_tablero = tablero[j]
             else:
                 pieza_tablero = []
         return pieza_tablero
@@ -101,22 +101,32 @@ class Partida:
             return False
     
     def se_puede_poner_norte (self, pieza_norte, pieza_colocar):
-        if (pieza_norte[4] == pieza_colocar.posicion[0]) or (pieza_norte == []):
+        if (pieza_norte == []):
+            return True
+        elif (pieza_norte.posicion[4] == pieza_colocar.posicion[0]):
             return True
         else:
             return False
+            
     def se_puede_poner_este (self, pieza_este, pieza_colocar):
-        if (pieza_este[6] == pieza_colocar.posicion[2]) or (pieza_este == []):
+        if (pieza_este == []):
+            return True
+        elif (pieza_este.posicion[6] == pieza_colocar.posicion[2]):
             return True
         else:
             return False
+            
     def se_puede_poner_sur(self, pieza_sur, pieza_colocar):
-        if (pieza_sur[0] == pieza_colocar.posicion[4]) or (pieza_sur == []):
+        if (pieza_sur == []):
+            return True
+        elif (pieza_sur.posicion[0] == pieza_colocar.posicion[4]):
             return True
         else:
             return False
     def se_puede_poner_oeste(self, pieza_oeste, pieza_colocar):
-        if (pieza_oeste[2] == pieza_colocar[6]) or (pieza_oeste == []):
+        if (pieza_oeste == []):
+            return True
+        elif (pieza_oeste.posicion[2] == pieza_colocar.posicion[6]):
             return True
         else:
             return False
