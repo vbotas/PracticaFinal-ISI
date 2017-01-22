@@ -470,7 +470,7 @@ class Test_basico(unittest.TestCase):
         pieza = partida.sacar_pieza()
         turno = 1
         jugador1 = partida.jugadores[turno -1]
-        self.assertEqual(True, partida.introducir_meeple(pieza,2,jugador1))
+        self.assertEqual(True, partida.introducir_meeple(2,jugador1))
 
   #Test para comprobar si un jugador puede introducir un meeple a una pieza del tablero
     def test_introducir_meeple2(self):
@@ -480,7 +480,7 @@ class Test_basico(unittest.TestCase):
         pieza = partida.sacar_pieza()
         jugador1 = partida.jugadores[turno -1]
         n_meeples = jugador1.meeples
-        partida.introducir_meeple(pieza,2,jugador1)
+        partida.introducir_meeple(2,jugador1)
         self.assertEqual(n_meeples - 1,jugador1.meeples)
 
 
@@ -493,7 +493,7 @@ class Test_basico(unittest.TestCase):
         pieza = partida.sacar_pieza()
         jugador1 = partida.jugadores[turno -1]
         jugador1.meeples = 0
-        self.assertEqual(False, partida.introducir_meeple(pieza,2,jugador1))
+        self.assertEqual(False, partida.introducir_meeple(2,jugador1))
 
     #Test para comprobar que el numero de monasterios sea correcto
     def test_comprobar_monasterio(self):
@@ -518,16 +518,19 @@ class Test_basico(unittest.TestCase):
     def test_comprobar_indice_jugador(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         jugador = Jugador('Ana')
-        indice_jugador = partida.buscar_ind_jugador(jugador)
+        indice_jugador = partida.buscar_ind_jugador(jugador.nombre)
         self.assertEqual(1, indice_jugador) 
 
     # Test que comprueba si la funcion jugadores_con_mas_meeples funciona bien
     def test_jugador_con_mas_meeples(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(1)
+        pieza1.jugador = partida.jugadores[0]
         pieza2 = Pieza_terreno(2)
+        pieza2.jugador = partida.jugadores[1]
         pieza3 = Pieza_terreno(3)
-        partida.introducir_meeple(pieza2,1,partida.jugadores[1])
+        pieza3.jugador = partida.jugadores[2]
+        pieza2.meeples = 1
         jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3])
         self.assertEqual('Ana',jugadores[0].nombre)
 
@@ -535,20 +538,36 @@ class Test_basico(unittest.TestCase):
     def test_jugador_con_mas_meeples2(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(1)
+        pieza1.jugador = partida.jugadores[2]
         pieza2 = Pieza_terreno(2)
+        pieza2.jugador = partida.jugadores[1]
         pieza3 = Pieza_terreno(3)
-        partida.introducir_meeple(pieza2,1,partida.jugadores[1])
-        partida.introducir_meeple(pieza1,1,partida.jugadores[2])
-        partida.introducir_meeple(pieza3,2,partida.jugadores[2])
+        pieza3.jugador = partida.jugadores[2]
+        pieza1.meeples = 1
+        pieza2.meeples = 1
+        pieza3.meeples = 2
         jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2,pieza3])
         self.assertEqual('Maria',jugadores[0].nombre)
+
+    # Test que comprueba si la funcion jugador_con_mas_meeples funciona bien
+    def test_jugador_con_mas_meeples2(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(1)
+        pieza1.jugador = partida.jugadores[2]
+        pieza2 = Pieza_terreno(2)
+        pieza2.jugador = partida.jugadores[1]
+        pieza1.meeples = 1
+        pieza2.meeples = 1
+        jugadores = partida.jugadores_con_mas_meeples([pieza1,pieza2])
+        self.assertEqual('Ana',jugadores[0].nombre)
+        self.assertEqual('Maria',jugadores[1].nombre)
 
     # Comprueba la puntuacion para una secuencia concreta de camino
     def test_comprobar_cierre_camino(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(11)
         pieza2 = Pieza_terreno(11)
-        partida.introducir_meeple(pieza1,4,partida.jugadores[1])
+        partida.introducir_meeple(4,partida.jugadores[1])
         partida.poner_pieza(pieza1, [0,1])
         partida.poner_pieza(pieza2, [0,-1])
         partida.comprobar_cierre_caminos()

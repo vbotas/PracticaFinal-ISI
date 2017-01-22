@@ -100,10 +100,10 @@ class Partida:
         else:
             return False
     
-    #Introducir meeple en una ficha del tablero
-    def introducir_meeple(self,pieza,posicion_meeple,jugador):
+    #Introducir meeple en la ultima ficha del tablero
+    def introducir_meeple(self,posicion_meeple,jugador):
         if jugador.meeples > 0:
-            pieza.meeple = posicion_meeple
+            self.tablero[-1].meeple = posicion_meeple
             jugador.meeples -= 1
             return True
         else:
@@ -128,9 +128,30 @@ class Partida:
     def buscar_ind_jugador(self, jugador_buscado):
         indice = None
         for i in range(len(self.jugadores)):
-            if self.jugadores[i].nombre == jugador_buscado.nombre:
+            if self.jugadores[i].nombre == jugador_buscado:
                 indice = i
         return indice
+
+    # Devuelve el/los jugador/es que mas meeples tienen en una lista de piezas que se le pasa
+    def jugadores_con_mas_meeples(self, piezas):
+        jugadores = []
+        nombres_jugadores = [] # array con los nombres de los jugadores con meeple (se pueden repetir)
+        for pieza in piezas:
+            if pieza.meeples != None:
+                nombres_jugadores.append(pieza.jugador.nombre)
+        if len(nombres_jugadores) > 1:
+            # Si hay mas de un jugador con meeples me quedo con el que mas tenga
+            freq = collections.Counter(nombres_jugadores).values()
+            max_freq = max(freq)
+            total = freq.count(max_freq)
+            mas_comun = collections.Counter(nombres_jugadores).most_common(total)
+            nombres_jugadores = [elem[0] for elem in mas_comun] # ahora ya no estan repetidos
+        # Introduzco el objeto de cada jugador en jugadores
+        for nombre in nombres_jugadores:
+            ind_jugador = self.buscar_ind_jugador(nombre)
+            jugadores.append(self.jugadores[ind_jugador])
+        return jugadores
+
 
     # Comprueba si algun camino se ha cerrado
     def comprobar_cierre_camino(self):
@@ -142,10 +163,12 @@ class Partida:
                 # Para cada camino cerrado, si no estaba ya contado lo introduzco y sumo la puntuacion
                 if (piezas_camino != []) and not (piezas_camino in self.caminos_encontrados):
                     self.caminos_encontrados.append(piezas_camino)
-                    jugador = partida.jugador_con_mas_meeples(piezas_camino)
-                    ind_jugador = partida.buscar_ind_jugador(jugador)
-                    self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
-                    self.jugadores[ind_jugador].meeples += 1
+                    jugadores = partida.jugadores_con_mas_meeples(piezas_camino)
+                    for jugador in jugadores:
+                        # A cada jugador le sumo la puntuacion y le devuelvo los meeples
+                        ind_jugador = partida.buscar_ind_jugador(jugador.nombre)
+                        self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
+                        self.jugadores[ind_jugador].meeples += 1
 
 class Jugador:
 
