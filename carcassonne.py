@@ -108,12 +108,6 @@ class Partida:
             return True
         else:
             return False
-        
-    def comprobar_cierre_monasterio(self):
-        num_monast = self.buscar_monaterios_en_tablero()
-        numero_monasterios = len(num_monast)
-        return numero_monasterios
-
 
     def buscar_monaterios_en_tablero(self):
         tablero = self.tablero
@@ -125,6 +119,12 @@ class Partida:
             else:
                 pass
         return monasterios
+
+        
+    def comprobar_cierre_monasterio(self):
+        num_monast = self.buscar_monaterios_en_tablero()
+        numero_monasterios = len(num_monast)
+        return numero_monasterios
 
 class Jugador:
 
@@ -143,6 +143,18 @@ class Jugador:
 
 class Pieza_terreno:
 
+    # Devuelve los indices de posicion en los que coincide el tipo de terreno
+    # que se pasa como argumento
+    def posicion_tipo_terreno_en_pieza(self,tipo_terreno):
+        # Elimino las esquinas
+        posicion = self.posicion[0:7:2]
+        # Me quedo con aquellos indices en los que coincida el tipo de terreno
+        indices_posicion = []
+        for i in range(len(posicion)):
+            if posicion[i] == tipo_terreno:
+                indices_posicion.append(i*2)
+        return indices_posicion
+        
     # Repite cada pieza el numero de veces que aparezca en el juego original
     def repetir_pieza(self):
         if self.tipo == 1:
