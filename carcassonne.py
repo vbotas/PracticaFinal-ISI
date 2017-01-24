@@ -154,6 +154,18 @@ class Partida:
         monasterios = self.buscar_tipo_en_tablero("Monasterio")
         numero_monasterios = len(monasterios)
         return numero_monasterios
+    
+    def sumar_puntos_monasterio(self,jugador):
+        numero_monasterios = self.comprobar_cierre_monasterio()
+        jugador.actualizar_puntuacion(9*numero_monasterios)
+        monasterios = self.buscar_tipo_en_tablero("Monasterio")
+        for mon in range(len(monasterios)):
+            if monasterios[mon].meeples == 8:
+                monasterios[mon].meeples = None
+                jugador.meeples += 1
+        return jugador.puntuacion
+                 
+        
 
     # Busca el indice en el que se encuentra el jugador que se pasa en self.jugadores
     def buscar_ind_jugador(self, jugador_buscado):
@@ -277,7 +289,7 @@ class Pieza_terreno:
         return pieza_repetida
 
     # Asigna los distintos tipos de territorios al atributo posicion. El array se
-    # corresponderia con la parte ['Norte','Este','Sur','Oeste'] de la pieza
+    # corresponderia con la parte ['Norte','Noreste','Este','Sureste','Sur','Suroeste','Oeste','Noroeste','Centro'] de la pieza
     def asignar_posicion(self, tipo):
         if tipo == 1:
             posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Camino','Granja','']
@@ -322,13 +334,13 @@ class Pieza_terreno:
     # Inicializa la clase pieza territorio
     def __init__(self, tipo):
         self.tipo = tipo
-        # Posicion = ['Norte','Este','Sur','Oeste']
+        # Posicion = ['Norte','Noreste','Este','Sureste','Sur','Suroeste','Oeste','Noroeste','Centro']
         self.posicion = self.asignar_posicion(tipo)
         # Coordenada X y coordenada Y
         self.coordenadas = [None,None]
         # Si no hay ningun meeple colocado, self.meeples = None. Si lo hay,
         # self.meeples toma el valor de la parte en la que se coloca:
-        # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste
+        # 0: norte, 1: noreste, 2: este, 3:sureste, 4: sur, 5: suroeste, 6: oeste, 7: noroeste, 8: Centro
         self.meeples = None
         # Jugador que ha colocado la pieza
         self.jugador = None
