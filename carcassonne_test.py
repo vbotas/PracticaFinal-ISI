@@ -576,11 +576,11 @@ class Test_basico(unittest.TestCase):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(11)
         pieza2 = Pieza_terreno(11)
-        partida.introducir_meeple(4,partida.jugadores[1])
         partida.poner_pieza(pieza1, [0,1])
         partida.poner_pieza(pieza2, [0,-1])
+        partida.introducir_meeple(4,partida.jugadores[1])
         partida.comprobar_cierre_camino()
-        self.assertEqual(3, jugadores[1].puntuacion)
+        self.assertEqual(3, partida.jugadores[1].puntuacion)
 
 
 if __name__ == '__main__':

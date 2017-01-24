@@ -93,6 +93,7 @@ class Partida:
         for j in range(len(tablero)):
             if coords == tablero[j].coordenadas:
                 pieza_tablero = tablero[j]
+                break
             else:
                 pieza_tablero = []
         return pieza_tablero
@@ -109,7 +110,7 @@ class Partida:
         if comprobar_pieza != []:
             return False
         elif (self.se_puede_poner_norte(pieza_norte, pieza_colocar) and self.se_puede_poner_este(pieza_este, pieza_colocar) and self.se_puede_poner_sur(pieza_sur, pieza_colocar) and self.se_puede_poner_oeste(pieza_oeste, pieza_colocar)) and (pieza_norte != [] or pieza_este !=[] or pieza_sur !=[] or pieza_oeste !=[]):
-            pieza_colocar.jugador = self.jugadores[self.turno % len(self.jugadores)-1]
+            pieza_colocar.jugador = self.jugadores[len(self.tablero) % len(self.jugadores)-1]
             pieza_colocar.coordenadas = coordenadas_colocar
             self.tablero.append(pieza_colocar)
         else:
@@ -149,7 +150,7 @@ class Partida:
     #Introducir meeple en la ultima ficha del tablero
     def introducir_meeple(self,posicion_meeple,jugador):
         if jugador.meeples > 0:
-            self.tablero[-1].meeple = posicion_meeple
+            self.tablero[-1].meeples = posicion_meeple
             jugador.meeples -= 1
             return True
         else:
@@ -196,6 +197,7 @@ class Partida:
         nombres_jugadores = [] # array con los nombres de los jugadores con meeple (se pueden repetir)
         for pieza in piezas:
             posiciones = pieza.posicion_tipo_terreno_en_pieza(tipo_terreno)
+            print pieza.meeples, pieza.coordenadas
             if pieza.meeples in posiciones:
                 nombres_jugadores.append(pieza.jugador.nombre)
         if len(nombres_jugadores) > 1:
@@ -211,9 +213,62 @@ class Partida:
             jugadores.append(self.jugadores[ind_jugador])
         return jugadores
 
+    # Funcion que busca la pieza conectada a la que se pasa como argumento de un tipo de terreno concreto
+    def evaluarSiguiente(self,pieza_actual,posicion_actual,tipo_terreno):
+        pieza_siguiente = []
+        num_pos_siguiente = None
+        posicion_siguiente = None
+        coord_x = pieza_actual.coordenadas[0]
+        coord_y = pieza_actual.coordenadas[1]
+        if posicion_actual == 0:
+            coord_y += 1
+            tmp = 4 # posicion de la siguiente a la que se conecta la actual
+        elif posicion_actual == 2:
+            coord_x += 1
+            tmp = 6 # si es Este se conecta a la siguiente por Oeste
+        elif posicion_actual == 4:
+            coord_y -= 1
+            tmp = 0
+        elif posicion_actual == 6:
+            coord_x -= 1
+            tmp = 2
+        else:
+            return pieza_siguiente, num_pos_siguiente, posicion_siguiente
+        pieza_siguiente = self.ver_pieza_tablero([coord_x,coord_y])
+        if pieza_siguiente != []:
+            posiciones_siguiente = pieza_siguiente.posicion_tipo_terreno_en_pieza("Camino")
+            num_pos_siguiente = len(posiciones_siguiente)
+            # Me quedo con la posicion del otro lado en el caso de que dos lados sean Camino
+            if num_pos_siguiente == 2:
+                for posicion in posiciones_siguiente:
+                    if posicion != tmp:
+                        posicion_siguiente = posicion
+        return pieza_siguiente, num_pos_siguiente, posicion_siguiente
+
+
     # Funcion que busca si una pieza del camino forma parte de un camino cerrado
     def buscar_caminos_cerrados(self, pieza):
-        pass
+        posiciones = pieza.posicion_tipo_terreno_en_pieza("Camino")
+        max_caminos_posibles = [1, 1, 3, 4]
+        caminos = []
+        for ind_camino in range(max_caminos_posibles[len(posiciones)-1]):
+            piezas_camino = []  # piezas que forman el camino
+            terminaciones = []  # piezas que terminan el camino
+            pieza_actual = pieza
+            num_pos_actual = len(posiciones)
+            posicion_actual = posiciones[ind_camino]
+            while pieza_actual != []:
+                piezas_camino.append(pieza_actual)
+                if num_pos_actual != 2:
+                    terminaciones.append(pieza_actual)
+                if len(terminaciones) < 2:
+                    pieza_actual,num_pos_actual,posicion_actual = self.evaluarSiguiente(pieza_actual,posicion_actual,"Camino")
+                else:
+                    break;
+            if len(terminaciones)==2:
+                piezas_camino.sort(key=lambda x: (x.coordenadas[0],x.coordenadas[1]))
+                caminos.append(piezas_camino)
+        return caminos
 
     # Comprueba si algun camino se ha cerrado
     def comprobar_cierre_camino(self):
@@ -225,10 +280,11 @@ class Partida:
                 # Para cada camino cerrado, si no estaba ya contado lo introduzco y sumo la puntuacion
                 if (piezas_camino != []) and not (piezas_camino in self.caminos_encontrados):
                     self.caminos_encontrados.append(piezas_camino)
-                    jugadores = partida.jugadores_con_mas_meeples(piezas_camino)
+                    jugadores = self.jugadores_con_mas_meeples(piezas_camino,"Camino")
                     for jugador in jugadores:
+                        print jugador.nombre
                         # A cada jugador le sumo la puntuacion y le devuelvo los meeples
-                        ind_jugador = partida.buscar_ind_jugador(jugador.nombre)
+                        ind_jugador = self.buscar_ind_jugador(jugador.nombre)
                         self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
                         self.jugadores[ind_jugador].meeples += 1
 
