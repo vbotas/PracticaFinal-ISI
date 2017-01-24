@@ -64,23 +64,6 @@ class Partida:
         lista_jugadores_aux = sorted(lista_jugadores, key = lambda objeto: objeto.puntuacion, reverse = True)
         return lista_jugadores_aux
 
-    #Asignar turnos a los jugadores
-    def asignar_turnos(self, jugadores):
-        turno = 1
-        i = 1
-	turnos_jugador = []
-        numero_turnos = 72
-	numero_jugadores = len(jugadores)
-        
-        while (turno < numero_turnos):
- 	    turnos_jugador.append(jugadores[i-1])
-	    if i == numero_jugadores:
-                i = 0
-	    turno = turno + 1
-            i = i + 1            
-	
-	return turnos_jugador
-
     # Saca una pieza de la baraja
     def sacar_pieza(self):
         pieza_sacada= []

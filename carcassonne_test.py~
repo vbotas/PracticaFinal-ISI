@@ -462,15 +462,6 @@ class Test_basico(unittest.TestCase):
         lista_ordenada_aux = [jugadores[1],jugadores[0]]
         self.assertEqual(lista_ordenada_aux[0], lista_ordenada[0])
 
-    #Test para comprobar si se asignan los turnos correctamnete
-    def test_asignar_turnos(self):
-        jugadores = Partida().inicializar_jugadores(['Pedro', 'Juan', 'Felipe'])
-        turnos_jugadores = Partida().asignar_turnos(jugadores)
-        i = 0
-        while (i < 72):
-            self.assertEqual(turnos_jugadores[i].nombre, 'Pedro')
-            i = i + 3
-
 
   #Test para comprobar si un jugador puede introducir un meeple a una pieza del tablero
     def test_introducir_meeple(self):
