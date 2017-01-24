@@ -68,18 +68,16 @@ class Partida:
     def asignar_turnos(self, jugadores):
         turno = 1
         i = 1
-	turnos_jugador = []
+        turnos_jugador = []
         numero_turnos = 72
-	numero_jugadores = len(jugadores)
-        
+        numero_jugadores = len(jugadores)
         while (turno < numero_turnos):
- 	    turnos_jugador.append(jugadores[i-1])
-	    if i == numero_jugadores:
+            turnos_jugador.append(jugadores[i-1])
+            if i == numero_jugadores:
                 i = 0
-	    turno = turno + 1
+            turno = turno + 1
             i = i + 1            
-	
-	return turnos_jugador
+        return turnos_jugador
 
     # Saca una pieza de la baraja
     def sacar_pieza(self):
