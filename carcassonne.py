@@ -172,16 +172,30 @@ class Partida:
         return numero_monasterios
     
     def sumar_puntos_monasterio(self):
+        puntos = 0
         piezas_monasterio = self.buscar_tipo_en_tablero("Monasterio")
-        for mon in piezas_monasterio:
+        for mon in range(len(piezas_monasterio)):
             jugador_monasterio = piezas_monasterio[mon].jugador
-            puntos = 9
-            jugador_monasterio.actualizar_puntuacion(puntos)
-            if piezas_monasterio[mon].meeples==8:
+            coorx = piezas_monasterio[mon].coordenadas[0]
+            coory = piezas_monasterio[mon].coordenadas[1]
+            puntos += 1
+            print('piezas_monasterio[mon-1].meeples',piezas_monasterio[mon-1].meeples)
+            if(self.ver_pieza_tablero(coorx,coory-1) != [] and self.ver_pieza_tablero(coorx,coory+1) != [] and self.ver_pieza_tablero(coorx-1,coory) != [] and self.ver_pieza_tablero(coorx+1,coory) != []):
+                puntos = 9
+                jugador_monasterio.actualizar_puntuacion(puntos)
+            else:
+                if piezas_monasterio[mon-1].meeples==8:
                 #Se devuelve el meeple al jugador y se elimina de la pieza
-                jugador_monasterio.meeples += 1
-                piezas_monasterio[mon].meeples = None
-            return jugador_monasterio.puntuacion
+                    print('jugador_monaserio.meeples', jugador_monasterio.meeples)
+                    jugador_monasterio.meeples += 1
+                    print('jugador_monaserio.meeples', jugador_monasterio.meeples)
+                    puntos += 1
+                    piezas_monasterio[mon].meeples = None
+                    jugador_monasterio.actualizar_puntuacion(puntos)
+                else:
+                    jugador_monasterio.actualizar_puntuacion(puntos)
+        print('Puntuacion: ',jugador_monasterio.puntuacion)
+        return jugador_monasterio.puntuacion
             
         
 
