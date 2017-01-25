@@ -180,7 +180,7 @@ class Partida:
             coory = piezas_monasterio[mon].coordenadas[1]
             puntos += 1
             print('piezas_monasterio[mon-1].meeples',piezas_monasterio[mon-1].meeples)
-            if(self.ver_pieza_tablero(coorx,coory-1) != [] and self.ver_pieza_tablero(coorx,coory+1) != [] and self.ver_pieza_tablero(coorx-1,coory) != [] and self.ver_pieza_tablero(coorx+1,coory) != []):
+            if(self.ver_pieza_tablero([coorx,coory-1]) != [] and self.ver_pieza_tablero([coorx,coory+1]) != [] and self.ver_pieza_tablero([coorx-1,coory]) != [] and self.ver_pieza_tablero([coorx+1,coory]) != []):
                 puntos = 9
                 jugador_monasterio.actualizar_puntuacion(puntos)
             else:
