@@ -581,6 +581,16 @@ class Test_basico(unittest.TestCase):
         partida.introducir_meeple(4,partida.jugadores[1])
         partida.comprobar_cierre_camino()
         self.assertEqual(3, partida.jugadores[1].puntuacion)
+    #Comprueba que aumenta la puntuacion al colocar una pieza con un "monasterio"
+    def test_comprobar_suma_puntos_monasterio(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(11)
+        pieza2 = Pieza_terreno(17)
+        partida.poner_pieza(pieza1, [0,1])
+        partida.poner_pieza(pieza2, [0,-1])
+        partida.comprobar_cierre_monasterio()
+        partida.sumar_puntos_monasterio()
+        self.assertEqual(9, partida.jugadores[1].puntuacion)
 
 
 if __name__ == '__main__':
