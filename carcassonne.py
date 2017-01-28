@@ -84,9 +84,8 @@ class Partida:
     # Saca una pieza de la baraja
     def sacar_pieza(self):
         pieza_sacada= []
-        turno = len(self.tablero)
-        pieza_sacada = self.baraja[turno-1]
-        self.baraja.pop(turno-1)
+        pieza_sacada = self.baraja[self.turno-1]
+        self.baraja.pop(self.turno-1)
         return pieza_sacada
 
    #Funcion para obtener cual es la pieza que ya esta en el tablero
