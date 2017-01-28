@@ -45,25 +45,6 @@ class Partida:
         tablero = [pieza_inicial]
         return tablero
 
-    # Inicializacion de la partida
-    def inicializar(self, nombres_jugadores):
-        if not self.num_jug_correcto(nombres_jugadores):
-            return "Numero de jugadores incorrecto. Solo pueden jugar entre 2 y 4 personas"
-        if not self.nombres_jug_correcto(nombres_jugadores):
-            return "No se puede repetir el nombre de dos jugadores"
-        self.turno = 1
-        self.jugadores = self.inicializar_jugadores(nombres_jugadores)
-        self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
-        random.shuffle(self.baraja)  # aleatorizo la baraja
-        self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
-        self.caminos_encontrados = []  # lista con los caminos que se encontraron
-        return self
-
-    # Ordenar los jugadores en funcion de la puntuacion de cada uno de ellos
-    def orden_jugadores_ptos(self,lista_jugadores):
-        lista_jugadores_aux = sorted(lista_jugadores, key = lambda objeto: objeto.puntuacion, reverse = True)
-        return lista_jugadores_aux
-
     #Asignar turnos a los jugadores
     def asignar_turnos(self, jugadores):
         turno = 1
@@ -78,6 +59,27 @@ class Partida:
             turno = turno + 1
             i = i + 1            
         return turnos_jugador
+
+    # Inicializacion de la partida
+    def inicializar(self, nombres_jugadores):
+        if not self.num_jug_correcto(nombres_jugadores):
+            return "Numero de jugadores incorrecto. Solo pueden jugar entre 2 y 4 personas"
+        if not self.nombres_jug_correcto(nombres_jugadores):
+            return "No se puede repetir el nombre de dos jugadores"
+        self.turno = 0
+        self.jugadores = self.inicializar_jugadores(nombres_jugadores)
+        self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
+        random.shuffle(self.baraja)  # aleatorizo la baraja
+        self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
+        self.caminos_encontrados = []  # lista con los caminos que se encontraron
+        self.lista_turnos = self.asignar_turnos(self.jugadores)  # orden de los turnos de los jugadores
+        return self
+
+    # Suma uno al turno de la partida y devuelve el jugador que juega ese turno
+    def jugador_turno(self):
+        self.turno += 1
+        jugador = self.lista_turnos[self.turno-1]
+        return jugador
 
     # Saca una pieza de la baraja
     def sacar_pieza(self):
@@ -97,32 +99,7 @@ class Partida:
             else:
                 pieza_tablero = []
         return pieza_tablero
-    
-    # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.        
-    def poner_pieza (self, pieza_colocar, coordenadas_colocar):
-        coord_x = coordenadas_colocar[0]
-        print('Coord_X: ',coord_x)
-        coord_y = coordenadas_colocar[1]
-        print('Coord_Y: ',coord_y)
-        pieza_norte = self.ver_pieza_tablero([coord_x, coord_y-1])
-        print('Pieza_norte: ',pieza_norte)
-        pieza_oeste = self.ver_pieza_tablero([coord_x-1, coord_y])
-        print('Pieza_oeste: ',pieza_oeste)
-        pieza_sur = self.ver_pieza_tablero([coord_x, coord_y +1])
-        print('Pieza_sur: ',pieza_sur)
-        pieza_este = self.ver_pieza_tablero([coord_x+1, coord_y])
-        print('Pieza_este: ',pieza_este)
-        comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
-        if comprobar_pieza != []:
-            print('FALLO')
-            return False
-        elif (self.se_puede_poner_norte(pieza_norte, pieza_colocar) and self.se_puede_poner_este(pieza_este, pieza_colocar) and self.se_puede_poner_sur(pieza_sur, pieza_colocar) and self.se_puede_poner_oeste(pieza_oeste, pieza_colocar)) and (pieza_norte != [] or pieza_este !=[] or pieza_sur !=[] or pieza_oeste !=[]):
-            pieza_colocar.jugador = self.jugadores[len(self.tablero) % len(self.jugadores)-1]
-            pieza_colocar.coordenadas = coordenadas_colocar
-            self.tablero.append(pieza_colocar)
-        else:
-            return False
-    
+
     def se_puede_poner_norte (self, pieza_norte, pieza_colocar):
         if (pieza_norte == []):
             return True
@@ -151,6 +128,31 @@ class Partida:
             return True
         elif (pieza_oeste.posicion[2] == pieza_colocar.posicion[6]):
             return True
+        else:
+            return False
+    
+    # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.        
+    def poner_pieza (self, pieza_colocar, coordenadas_colocar):
+        coord_x = coordenadas_colocar[0]
+        print('Coord_X: ',coord_x)
+        coord_y = coordenadas_colocar[1]
+        print('Coord_Y: ',coord_y)
+        pieza_norte = self.ver_pieza_tablero([coord_x, coord_y-1])
+        print('Pieza_norte: ',pieza_norte)
+        pieza_oeste = self.ver_pieza_tablero([coord_x-1, coord_y])
+        print('Pieza_oeste: ',pieza_oeste)
+        pieza_sur = self.ver_pieza_tablero([coord_x, coord_y +1])
+        print('Pieza_sur: ',pieza_sur)
+        pieza_este = self.ver_pieza_tablero([coord_x+1, coord_y])
+        print('Pieza_este: ',pieza_este)
+        comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
+        if comprobar_pieza != []:
+            print('FALLO')
+            return False
+        elif (self.se_puede_poner_norte(pieza_norte, pieza_colocar) and self.se_puede_poner_este(pieza_este, pieza_colocar) and self.se_puede_poner_sur(pieza_sur, pieza_colocar) and self.se_puede_poner_oeste(pieza_oeste, pieza_colocar)) and (pieza_norte != [] or pieza_este !=[] or pieza_sur !=[] or pieza_oeste !=[]):
+            pieza_colocar.jugador = self.jugadores[len(self.tablero) % len(self.jugadores)-1]
+            pieza_colocar.coordenadas = coordenadas_colocar
+            self.tablero.append(pieza_colocar)
         else:
             return False
     
@@ -326,6 +328,11 @@ class Partida:
                         ind_jugador = self.buscar_ind_jugador(jugador.nombre)
                         self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
                         self.jugadores[ind_jugador].meeples += 1
+
+    # Ordenar los jugadores en funcion de la puntuacion de cada uno de ellos
+    def orden_jugadores_ptos(self,lista_jugadores):
+        lista_jugadores_aux = sorted(lista_jugadores, key = lambda objeto: objeto.puntuacion, reverse = True)
+        return lista_jugadores_aux
 
 class Jugador:
 
