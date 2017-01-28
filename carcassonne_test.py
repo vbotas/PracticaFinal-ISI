@@ -593,5 +593,27 @@ class Test_basico(unittest.TestCase):
         partida.sumar_puntos_monasterio()
         self.assertEqual(3, partida.jugadores[1].puntuacion)
 
+    # Test para comprobar que el turno se actualiza al usar jugador_turno
+    def test_jugador_turno_1(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        jugador = partida.jugador_turno()
+        self.assertEqual(1,partida.turno)
+
+    # Test para comprobar que el turno se actualiza al usar jugador_turno
+    def test_jugador_turno_2(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        jugador = partida.jugador_turno()
+        jugador = partida.jugador_turno()
+        jugador = partida.jugador_turno()
+        self.assertEqual(3,partida.turno)
+
+    # Test para comprobar que el jugador devuelto es el correcto
+    def test_jugador_turno_3(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        jugador = partida.jugador_turno()
+        jugador = partida.jugador_turno()
+        jugador = partida.jugador_turno()
+        self.assertEqual('Maria',jugador.nombre)
+
 if __name__ == '__main__':
     unittest.main()
