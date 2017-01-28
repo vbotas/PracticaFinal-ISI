@@ -507,8 +507,8 @@ class Test_basico(unittest.TestCase):
     #Test para comprobar que el numero de monasterios sea correcto
     def test_comprobar_monasterio(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
-        monasterios = partida.comprobar_cierre_monasterio()
-        self.assertGreaterEqual(monasterios, 0, msg="Numero inconrrecto de monasterios")
+        monasterios = partida.buscar_tipo_en_tablero("Monasterio")
+        self.assertGreaterEqual(len(monasterios), 0, msg="Numero inconrrecto de monasterios")
 
     # Test que comprueba que la funcion posicion_tipo_terreno_en_pieza devuelve un numero
     # correcto
@@ -586,16 +586,15 @@ class Test_basico(unittest.TestCase):
     
     def test_comprobar_suma_puntos_monasterio(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
-        pieza1 = Pieza_terreno(11)
-        pieza2 = Pieza_terreno(17)
+        pieza1 = Pieza_terreno(17)
+        pieza2 = Pieza_terreno(11)
         jugador = partida.jugador_turno()
         partida.poner_pieza(pieza1, [0,1])
         jugador = partida.jugador_turno()
         partida.poner_pieza(pieza2, [0,-1])
         partida.introducir_meeple(8)
         partida.comprobar_cierre_monasterio()
-        partida.sumar_puntos_monasterio()
-        self.assertEqual(3, partida.jugadores[1].puntuacion)
+        self.assertEqual(0, partida.jugadores[1].puntuacion)
 
     # Test para comprobar que el turno se actualiza al usar jugador_turno
     def test_jugador_turno_1(self):

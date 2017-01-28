@@ -71,7 +71,8 @@ class Partida:
         self.baraja = self.inicializar_baraja()  # baraja = fichas que aun se pueden jugar
         random.shuffle(self.baraja)  # aleatorizo la baraja
         self.tablero = self.inicializar_tablero()  # tablero = fichas que ya se han jugado
-        self.caminos_encontrados = []  # lista con los caminos que se encontraron
+        self.caminos_encontrados = []  # lista con los caminos que se completaron
+        self.monasterios_encontrados = []  # lista con los caminos ya completados
         self.lista_turnos = self.asignar_turnos(self.jugadores)  # orden de los turnos de los jugadores
         return self
 
@@ -143,10 +144,10 @@ class Partida:
     def poner_pieza (self, pieza_colocar, coordenadas_colocar):
         coord_x = coordenadas_colocar[0]
         coord_y = coordenadas_colocar[1]
-        pieza_norte = self.ver_pieza_tablero([coord_x, coord_y-1])
-        pieza_oeste = self.ver_pieza_tablero([coord_x-1, coord_y])
-        pieza_sur = self.ver_pieza_tablero([coord_x, coord_y +1])
-        pieza_este = self.ver_pieza_tablero([coord_x+1, coord_y])
+        pieza_norte = self.ver_pieza_tablero([coord_x, coord_y+1])
+        pieza_oeste = self.ver_pieza_tablero([coord_x+1, coord_y])
+        pieza_sur = self.ver_pieza_tablero([coord_x, coord_y-1])
+        pieza_este = self.ver_pieza_tablero([coord_x-1, coord_y])
         comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
         if comprobar_pieza != []:
             return False
@@ -177,43 +178,27 @@ class Partida:
                 piezas_tipo.append(tablero[k])
         return piezas_tipo
 
-        
+
     def comprobar_cierre_monasterio(self):
         monasterios = self.buscar_tipo_en_tablero("Monasterio")
-        numero_monasterios = len(monasterios)
-        return numero_monasterios
-    
-    def sumar_puntos_monasterio(self):
+        self.sumar_puntos_monasterio(monasterios)
+
+    # Suma los puntos en el caso de que se haya completado un monasterio que se pasa como argumento   
+    def sumar_puntos_monasterio(self, piezas_monasterio):
         puntos = 0
-        piezas_monasterio = self.buscar_tipo_en_tablero("Monasterio")
         for mon in range(len(piezas_monasterio)):
-            jugador_monasterio = piezas_monasterio[mon].jugador
-            coorx = piezas_monasterio[mon].coordenadas[0]
-            coory = piezas_monasterio[mon].coordenadas[1]
-            #Suma un punto por la pieza del monasterio
-            puntos += 1
-            if(self.ver_pieza_tablero([coorx,coory-1]) != [] and self.ver_pieza_tablero([coorx,coory+1]) != [] and self.ver_pieza_tablero([coorx-1,coory]) != [] and self.ver_pieza_tablero([coorx+1,coory]) != []):
-                # Suma 9 puntos por tener un monasterio completo
-                puntos = 9
-                jugador_monasterio.actualizar_puntuacion(puntos)
-            else:
-                piezas_rodeado = [self.ver_pieza_tablero([coorx,coory-1]),self.ver_pieza_tablero([coorx,coory+1]),self.ver_pieza_tablero([coorx-1,coory]),self.ver_pieza_tablero([coorx+1,coory])]
-                for pieza_rodea in piezas_rodeado:
-                    if (pieza_rodea == []):
-                        pass
-                    else:
-                        #Suma un punto por cada pieza que le rodee
-                        puntos += 1
-                if piezas_monasterio[mon-1].meeples==8:
-                #Se devuelve el meeple al jugador y se elimina de la pieza
-                    jugador_monasterio.meeples += 1
-                    # Suma un punto si hay meeples en el monasterio
-                    puntos += 1
-                    piezas_monasterio[mon].meeples = None
+            if not (piezas_monasterio[mon] in self.monasterios_encontrados):
+                nombre_jugador = piezas_monasterio[mon].jugador.nombre
+                ind_jugador = self.buscar_ind_jugador(nombre_jugador)
+                jugador_monasterio = self.jugadores[ind_jugador]
+                coorx = piezas_monasterio[mon].coordenadas[0]
+                coory = piezas_monasterio[mon].coordenadas[1]
+                if(self.ver_pieza_tablero([coorx,coory-1]) != [] and self.ver_pieza_tablero([coorx,coory+1]) != [] and self.ver_pieza_tablero([coorx-1,coory]) != [] and self.ver_pieza_tablero([coorx+1,coory]) != []):
+                    # Suma 9 puntos por tener un monasterio completo
+                    puntos = 9
                     jugador_monasterio.actualizar_puntuacion(puntos)
-                else:
-                    jugador_monasterio.actualizar_puntuacion(puntos)
-        return jugador_monasterio.puntuacion
+                    self.jugadores[ind_jugador] = jugador_monasterio
+                    self.monasterios_encontrados.append(piezas_monasterio[mon])
 
     # Devuelve el/los jugador/es que mas meeples tienen en una lista de piezas que se le pasa
     def jugadores_con_mas_meeples(self, piezas, tipo_terreno):
@@ -237,7 +222,7 @@ class Partida:
         return jugadores
 
     # Funcion que busca la pieza conectada a la que se pasa como argumento de un tipo de terreno concreto
-    def evaluarSiguiente(self,pieza_actual,posicion_actual,tipo_terreno):
+    def evaluar_siguiente(self,pieza_actual,posicion_actual,tipo_terreno):
         pieza_siguiente = []
         num_pos_siguiente = None
         posicion_siguiente = None
@@ -285,7 +270,7 @@ class Partida:
                 if num_pos_actual != 2:
                     terminaciones.append(pieza_actual)
                 if len(terminaciones) < 2:
-                    pieza_actual,num_pos_actual,posicion_actual = self.evaluarSiguiente(pieza_actual,posicion_actual,"Camino")
+                    pieza_actual,num_pos_actual,posicion_actual = self.evaluar_siguiente(pieza_actual,posicion_actual,"Camino")
                 else:
                     break;
             if len(terminaciones)==2:
@@ -404,7 +389,7 @@ class Pieza_terreno:
         elif tipo == 7:
             posicion = ['Granja','Granja','Camino','Granja','Camino','Granja','Camino','Granja','']
         elif tipo == 8:
-            posicion = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja','Monasterio']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+            posicion = ['Granja','Granja','Granja','Granja','Granja','Granja','Granja','Granja','Monasterio']
         elif tipo == 9:
             posicion = ['Granja','Castillo','Castillo','Castillo','Granja','Castillo','Castillo','Castillo','']
         elif tipo == 10:
@@ -422,7 +407,7 @@ class Pieza_terreno:
         elif tipo == 16:
             posicion = ['Granja','Castillo','Castillo','Castillo','Castillo','Castillo','Granja','Granja','']
         elif tipo == 17:
-            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja','Monasterio']  ## ESTA FIGURA TIENE UN MONASTERIO EN EL CENTRO
+            posicion = ['Granja','Granja','Granja','Granja','Camino','Granja','Granja','Granja','Monasterio']
         elif tipo == 18:
             posicion = ['Camino','Granja','Camino','Granja','Camino','Granja','Camino','Granja','']
         elif tipo == 19:
