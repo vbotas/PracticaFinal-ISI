@@ -75,10 +75,19 @@ class Partida:
         self.lista_turnos = self.asignar_turnos(self.jugadores)  # orden de los turnos de los jugadores
         return self
 
+    # Busca el indice en el que se encuentra el jugador que se pasa en self.jugadores
+    def buscar_ind_jugador(self, jugador_buscado):
+        indice = None
+        for i in range(len(self.jugadores)):
+            if self.jugadores[i].nombre == jugador_buscado:
+                indice = i
+        return indice
+
     # Suma uno al turno de la partida y devuelve el jugador que juega ese turno
     def jugador_turno(self):
         self.turno += 1
-        jugador = self.lista_turnos[self.turno-1]
+        jugador_buscado = self.lista_turnos[self.turno-1]
+        jugador = self.jugadores[self.buscar_ind_jugador(jugador_buscado.nombre)]
         return jugador
 
     # Saca una pieza de la baraja
@@ -133,37 +142,28 @@ class Partida:
     # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.        
     def poner_pieza (self, pieza_colocar, coordenadas_colocar):
         coord_x = coordenadas_colocar[0]
-        print('Coord_X: ',coord_x)
         coord_y = coordenadas_colocar[1]
-        print('Coord_Y: ',coord_y)
         pieza_norte = self.ver_pieza_tablero([coord_x, coord_y-1])
-        print('Pieza_norte: ',pieza_norte)
         pieza_oeste = self.ver_pieza_tablero([coord_x-1, coord_y])
-        print('Pieza_oeste: ',pieza_oeste)
         pieza_sur = self.ver_pieza_tablero([coord_x, coord_y +1])
-        print('Pieza_sur: ',pieza_sur)
         pieza_este = self.ver_pieza_tablero([coord_x+1, coord_y])
-        print('Pieza_este: ',pieza_este)
         comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
         if comprobar_pieza != []:
-            print('FALLO')
             return False
         elif (self.se_puede_poner_norte(pieza_norte, pieza_colocar) and self.se_puede_poner_este(pieza_este, pieza_colocar) and self.se_puede_poner_sur(pieza_sur, pieza_colocar) and self.se_puede_poner_oeste(pieza_oeste, pieza_colocar)) and (pieza_norte != [] or pieza_este !=[] or pieza_sur !=[] or pieza_oeste !=[]):
-            pieza_colocar.jugador = self.jugadores[len(self.tablero) % len(self.jugadores)-1]
+            pieza_colocar.jugador = self.jugadores[self.turno % len(self.jugadores)-1]
             pieza_colocar.coordenadas = coordenadas_colocar
             self.tablero.append(pieza_colocar)
         else:
             return False
     
     #Introducir meeple en la ultima ficha del tablero
-    def introducir_meeple(self,posicion_meeple,jugador):
-        print('hola')
+    def introducir_meeple(self,posicion_meeple):
+        jugador = self.jugadores[self.turno % len(self.jugadores)-1]
         if jugador.meeples > 0:
-            print('hola2')
             self.tablero[-1].meeples = posicion_meeple
-            print(self.tablero[-1])
-            print(self.tablero[-1].meeples)
             jugador.meeples -= 1
+            self.jugadores[self.turno % len(self.jugadores)-1] = jugador
             return True
         else:
             return False
@@ -172,7 +172,6 @@ class Partida:
     def buscar_tipo_en_tablero(self, tipo):
         tablero = self.tablero
         piezas_tipo = []
-        print ('Tablero: ',tablero)
         for k in range(len(tablero)):
             if tipo in tablero[k].posicion:
                 piezas_tipo.append(tablero[k])
@@ -182,9 +181,6 @@ class Partida:
     def comprobar_cierre_monasterio(self):
         monasterios = self.buscar_tipo_en_tablero("Monasterio")
         numero_monasterios = len(monasterios)
-        print('Monasterios: ',monasterios)
-        print('Pieza Monasterios: ', monasterios[0].posicion)
-        print ('Numero Monasterios: ', numero_monasterios)
         return numero_monasterios
     
     def sumar_puntos_monasterio(self):
@@ -196,7 +192,6 @@ class Partida:
             coory = piezas_monasterio[mon].coordenadas[1]
             #Suma un punto por la pieza del monasterio
             puntos += 1
-            print('piezas_monasterio[mon-1].meeples',piezas_monasterio[mon-1].meeples)
             if(self.ver_pieza_tablero([coorx,coory-1]) != [] and self.ver_pieza_tablero([coorx,coory+1]) != [] and self.ver_pieza_tablero([coorx-1,coory]) != [] and self.ver_pieza_tablero([coorx+1,coory]) != []):
                 # Suma 9 puntos por tener un monasterio completo
                 puntos = 9
@@ -211,25 +206,14 @@ class Partida:
                         puntos += 1
                 if piezas_monasterio[mon-1].meeples==8:
                 #Se devuelve el meeple al jugador y se elimina de la pieza
-                    print('jugador_monaserio.meeples', jugador_monasterio.meeples)
                     jugador_monasterio.meeples += 1
-                    print('jugador_monaserio.meeples', jugador_monasterio.meeples)
                     # Suma un punto si hay meeples en el monasterio
                     puntos += 1
                     piezas_monasterio[mon].meeples = None
                     jugador_monasterio.actualizar_puntuacion(puntos)
                 else:
                     jugador_monasterio.actualizar_puntuacion(puntos)
-        print('Puntuacion: ',jugador_monasterio.puntuacion)
         return jugador_monasterio.puntuacion
-            
-    # Busca el indice en el que se encuentra el jugador que se pasa en self.jugadores
-    def buscar_ind_jugador(self, jugador_buscado):
-        indice = None
-        for i in range(len(self.jugadores)):
-            if self.jugadores[i].nombre == jugador_buscado:
-                indice = i
-        return indice
 
     # Devuelve el/los jugador/es que mas meeples tienen en una lista de piezas que se le pasa
     def jugadores_con_mas_meeples(self, piezas, tipo_terreno):
@@ -237,7 +221,6 @@ class Partida:
         nombres_jugadores = [] # array con los nombres de los jugadores con meeple (se pueden repetir)
         for pieza in piezas:
             posiciones = pieza.posicion_tipo_terreno_en_pieza(tipo_terreno)
-            print (pieza.meeples, pieza.coordenadas)
             if pieza.meeples in posiciones:
                 nombres_jugadores.append(pieza.jugador.nombre)
         if len(nombres_jugadores) > 1:
@@ -322,7 +305,6 @@ class Partida:
                     self.caminos_encontrados.append(piezas_camino)
                     jugadores = self.jugadores_con_mas_meeples(piezas_camino,"Camino")
                     for jugador in jugadores:
-                        print (jugador.nombre)
                         # A cada jugador le sumo la puntuacion y le devuelvo los meeples
                         ind_jugador = self.buscar_ind_jugador(jugador.nombre)
                         self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))

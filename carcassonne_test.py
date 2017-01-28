@@ -476,21 +476,21 @@ class Test_basico(unittest.TestCase):
     def test_introducir_meeple(self):
         lista_nombres =['Paco','Ana','Laura','Pepe']
         partida = Partida().inicializar(lista_nombres)
-        pieza = partida.sacar_pieza()
-        turno = 1
-        jugador1 = partida.jugadores[turno -1]
-        self.assertEqual(True, partida.introducir_meeple(2,jugador1))
+        pieza = Pieza_terreno(11)
+        partida.poner_pieza(pieza, [0,1])
+        self.assertEqual(True, partida.introducir_meeple(2))
 
   #Test para comprobar si un jugador puede introducir un meeple a una pieza del tablero
     def test_introducir_meeple2(self):
         lista_nombres =['Paco','Ana','Laura','Pepe']
         partida = Partida().inicializar(lista_nombres)
-        turno = 1
-        pieza = partida.sacar_pieza()
-        jugador1 = partida.jugadores[turno -1]
+        jugador = partida.jugador_turno()
+        pieza = Pieza_terreno(11)
+        partida.poner_pieza(pieza, [0,1])
+        jugador1 = partida.jugadores[partida.turno -1]
         n_meeples = jugador1.meeples
-        partida.introducir_meeple(2,jugador1)
-        self.assertEqual(n_meeples - 1,jugador1.meeples)
+        partida.introducir_meeple(2)
+        self.assertEqual(n_meeples - 1,partida.jugadores[partida.turno -1].meeples)
 
 
     #Test para comprobar si un jugador al introducir un meeple en una pieza del
@@ -498,11 +498,11 @@ class Test_basico(unittest.TestCase):
     def test_introducir_meeple3(self):
         lista_nombres =['Paco','Ana','Laura','Pepe']
         partida = Partida().inicializar(lista_nombres)
-        turno = 1
-        pieza = partida.sacar_pieza()
-        jugador1 = partida.jugadores[turno -1]
-        jugador1.meeples = 0
-        self.assertEqual(False, partida.introducir_meeple(2,jugador1))
+        jugador = partida.jugador_turno()
+        pieza = Pieza_terreno(11)
+        partida.poner_pieza(pieza, [0,1])
+        partida.jugadores[partida.turno -1].meeples = 0
+        self.assertEqual(False, partida.introducir_meeple(2))
 
     #Test para comprobar que el numero de monasterios sea correcto
     def test_comprobar_monasterio(self):
@@ -576,9 +576,11 @@ class Test_basico(unittest.TestCase):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(11)
         pieza2 = Pieza_terreno(11)
+        jugador = partida.jugador_turno()
         partida.poner_pieza(pieza1, [0,1])
+        jugador = partida.jugador_turno()
         partida.poner_pieza(pieza2, [0,-1])
-        partida.introducir_meeple(4,partida.jugadores[1])
+        partida.introducir_meeple(4)
         partida.comprobar_cierre_camino()
         self.assertEqual(3, partida.jugadores[1].puntuacion)
     
@@ -586,9 +588,11 @@ class Test_basico(unittest.TestCase):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(11)
         pieza2 = Pieza_terreno(17)
+        jugador = partida.jugador_turno()
         partida.poner_pieza(pieza1, [0,1])
+        jugador = partida.jugador_turno()
         partida.poner_pieza(pieza2, [0,-1])
-        partida.introducir_meeple(8,partida.jugadores[1])
+        partida.introducir_meeple(8)
         partida.comprobar_cierre_monasterio()
         partida.sumar_puntos_monasterio()
         self.assertEqual(3, partida.jugadores[1].puntuacion)
