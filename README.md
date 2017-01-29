@@ -6,6 +6,6 @@ En este repositorio se puede encontrar una implementación en _python_ de la fun
 
 En la _wiki_ se han incluido tres páginas para comprender el diseño del juego:
 
-* [Criterios de diseño](https://github.com/vbotas/PracticaFinal-ISI/wiki/Criterios-de-dise%C3%B1o): Definición de las clases creadas, de sus métodos y de sus atributos.
+* [Documentación](https://github.com/vbotas/PracticaFinal-ISI/wiki/Documentaci%C3%B3n): Definición de las clases creadas, de sus métodos y de sus atributos.
 * [Reglas del Juego](https://github.com/vbotas/PracticaFinal-ISI/wiki/Reglas-del-Juego): Lista de reglas extraídas de la edición básica del juego que se han pretendido respetar.
 *  [Procedimiento de Ejecucion](https://github.com/vbotas/PracticaFinal-ISI/wiki/Procedimiento-de-ejecuci%C3%B3n): Procedimiento en el que se deberían ejecutar los distintos métodos en una hipotética interfaz.
