@@ -618,5 +618,65 @@ class Test_basico(unittest.TestCase):
         jugador = partida.jugador_turno()
         self.assertEqual('Maria',jugador.nombre)
 
+    # Test para comprobar que se asigna correctamente la puntuacion
+    def test_cerrar_granjas(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(17)
+        pieza2 = Pieza_terreno(11)
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza1, [0,1])
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza2, [0,-1])
+        partida.introducir_meeple(5)
+        partida.comprobar_cierre_granjas()
+        self.assertEqual(10, partida.jugadores[1].puntuacion)
+
+    # Test para comprobar que se asigna correctamente la puntuacion
+    def test_cerrar_granjas2(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(17)
+        pieza2 = Pieza_terreno(11)
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza1, [0,1])
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza2, [0,-1])
+        partida.introducir_meeple(5)
+        partida.comprobar_cierre_granjas()
+        self.assertEqual(0, partida.jugadores[0].puntuacion)
+
+    # Test para comprobar que se asigna correctamente la puntuacion en caso de empate
+    def test_cerrar_granjas3(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(17)
+        pieza2 = Pieza_terreno(11)
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza1, [0,1])
+        partida.introducir_meeple(0)
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza2, [0,-1])
+        partida.introducir_meeple(5)
+        partida.comprobar_cierre_granjas()
+        self.assertEqual(10, partida.jugadores[1].puntuacion)
+
+    # Test para comprobar que se asigna correctamente la puntuacion
+    def test_cerrar_granjas4(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza1 = Pieza_terreno(17)
+        pieza2 = Pieza_terreno(11)
+        pieza3 = Pieza_terreno(11)
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza1, [0,1])
+        partida.introducir_meeple(0)
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza2, [0,-1])
+        partida.introducir_meeple(5)
+        jugador = partida.jugador_turno()
+        jugador = partida.jugador_turno()
+        jugador = partida.jugador_turno()
+        partida.poner_pieza(pieza3, [0,-2])
+        partida.introducir_meeple(5)
+        partida.comprobar_cierre_granjas()
+        self.assertEqual(10, partida.jugadores[0].puntuacion)
+
 if __name__ == '__main__':
     unittest.main()
