@@ -296,6 +296,11 @@ class Partida:
                         self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
                         self.jugadores[ind_jugador].meeples += 1
 
+    # Comprueba los cierres de los distintos tipos de terreno al final de cada turno
+    def comprobar_cierres(self):
+        self.comprobar_cierre_monasterio()
+        self.comprobar_cierre_camino()
+
     # Comprueba el/los jugador/es con mas meeples en granjas y le suma diez puntos
     def comprobar_cierre_granjas(self):
         jugadores = self.jugadores_con_mas_meeples(self.tablero, "Granja")
