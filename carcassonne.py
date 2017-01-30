@@ -206,6 +206,7 @@ class Partida:
         nombres_jugadores = [] # array con los nombres de los jugadores con meeple (se pueden repetir)
         for pieza in piezas:
             posiciones = pieza.posicion_tipo_terreno_en_pieza(tipo_terreno)
+            print posiciones
             if pieza.meeples in posiciones:
                 nombres_jugadores.append(pieza.jugador.nombre)
         if len(nombres_jugadores) > 1:
@@ -295,6 +296,13 @@ class Partida:
                         self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
                         self.jugadores[ind_jugador].meeples += 1
 
+    # Comprueba el/los jugador/es con mas meeples en granjas y le suma diez puntos
+    def comprobar_cierre_granjas(self):
+        jugadores = self.jugadores_con_mas_meeples(self.tablero, "Granja")
+        for jugador in jugadores:
+            ind_jugador = self.buscar_ind_jugador(jugador.nombre)
+            self.jugadores[ind_jugador].actualizar_puntuacion(10)
+
     # Ordenar los jugadores en funcion de la puntuacion de cada uno de ellos
     def orden_jugadores_ptos(self,lista_jugadores):
         lista_jugadores_aux = sorted(lista_jugadores, key = lambda objeto: objeto.puntuacion, reverse = True)
@@ -320,14 +328,21 @@ class Pieza_terreno:
     # Devuelve los indices de posicion en los que coincide el tipo de terreno
     # que se pasa como argumento
     def posicion_tipo_terreno_en_pieza(self,tipo_terreno):
-        # Elimino las esquinas
-        posicion = self.posicion[0:7:2]
-        # Me quedo con aquellos indices en los que coincida el tipo de terreno
         indices_posicion = []
-        for i in range(len(posicion)):
-            if posicion[i] == tipo_terreno:
-                indices_posicion.append(i*2)
+        # Elimino las esquinas en el caso del camino
+        if tipo_terreno == "Granja":
+            posicion = self.posicion[0:7]
+            for i in range(len(posicion)):
+                if posicion[i] == tipo_terreno:
+                    indices_posicion.append(i)
+        else:
+            posicion = self.posicion[0:7:2]
+            for i in range(len(posicion)):
+                if posicion[i] == tipo_terreno:
+                    indices_posicion.append(i*2)
+        # Me quedo con aquellos indices en los que coincida el tipo de terreno
         return indices_posicion
+
         
     # Repite cada pieza el numero de veces que aparezca en el juego original
     def repetir_pieza(self):
