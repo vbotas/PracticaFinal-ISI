@@ -206,7 +206,6 @@ class Partida:
         nombres_jugadores = [] # array con los nombres de los jugadores con meeple (se pueden repetir)
         for pieza in piezas:
             posiciones = pieza.posicion_tipo_terreno_en_pieza(tipo_terreno)
-            print posiciones
             if pieza.meeples in posiciones:
                 nombres_jugadores.append(pieza.jugador.nombre)
         if len(nombres_jugadores) > 1:
@@ -303,34 +302,24 @@ class Partida:
         encontrado = False
         castillo = False
         posiciones = pieza.posicion_tipo_terreno_en_pieza2("Castillo")
-        print ("ARRAY DE POSICIONES ")
-        print posiciones
         coord_x = pieza.coordenadas[0]
-        print(coord_x)
         coord_y = pieza.coordenadas[1]
         piezas_totales = []
         piezas_castillos = []
-        print("ES_CASTILLO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         if posiciones == []:
             return False
         else:
-            print("Entrando para ver si es castillo")
             piezas_totales.append(pieza)
             #for j,i in enumerate(posiciones):
             for i in posiciones:
-                print ("Holaaaaaa pieza tipo ",pieza.tipo)
-                print i
                 pieza_inicio = pieza
                 if i == 1:
                     #inicio == 1
-                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza.tipo)
                     coord_x2 = coord_x +1
                     pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
                     coord_y2 = coord_y +1
                     pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
                     if pieza_siguiente != []:
-                        print("Antes de buscar castillos")
-                        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza_siguiente.tipo)
                         piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas_totales)
 
                     if pieza_siguiente2 != []:
@@ -344,7 +333,6 @@ class Partida:
 
                 if i == 3:
                     #inicio == 3
-                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza.tipo)
                     coord_x2 = coord_x +1
                     pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
                     coord_y2 = coord_y -1
@@ -363,7 +351,6 @@ class Partida:
                                 break
                 if i == 5:
                     #inicio == 5
-                    print("AAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAnalizando pieza: ",pieza.tipo)
                     coord_x2 = coord_x - 1
                     pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
                     coord_y2 = coord_y -1
@@ -383,7 +370,6 @@ class Partida:
                         #        break
                 if i == 7:
                     #inicio == 7
-                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza.tipo)
                     coord_x2 = coord_x - 1
                     pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
                     coord_y2 = coord_y +1
@@ -412,7 +398,6 @@ class Partida:
     def buscar_castillos(self,pieza_inicio,pieza,piezas):
         posiciones = pieza.posicion_tipo_terreno_en_pieza2("Castillo")
         castillo = False
-        print("Entrando en buscar castillos")
         if posiciones == []:
             return False
         else:
@@ -420,9 +405,7 @@ class Partida:
                 if (k!= pieza) & (len(piezas)-1 == m) :
                     piezas.append(pieza)
             for j,i in enumerate(posiciones):
-                print posiciones
                 piezas, castillo, pieza_inicio =self.casos(pieza,piezas,i,pieza_inicio,j)
-            print("EN BUSCAR CAMINO CASTILLO ES !!!!",castillo)
             return piezas,castillo,pieza_inicio
 
 
@@ -432,10 +415,8 @@ class Partida:
         castillo = False
         coord_x = pieza.coordenadas[0]
         coord_y = pieza.coordenadas[1]
-        print("Entramos en casos")
         if i == 1:
             #inicio == 1
-            print("Entramos en esquina1")
             coord_x2 = coord_x +1
             pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
             coord_y2 = coord_y +1
@@ -471,9 +452,7 @@ class Partida:
                 for k in piezas:
                     if k== pieza_siguiente:
                         analizar = False
-                        print ("PIEZA DE INICIO ENCONTRADA ")
                         if (k == pieza_inicio) & (len(posiciones)-1 ==j):
-                            print("ACTUALIZAMOS EL VALOR DE CASTILLO")
                             castillo= True
                 if analizar == True:
                     piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas)
@@ -537,7 +516,6 @@ class Partida:
                     piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_siguiente2,piezas)
             else:
                 castillo = False
-        print("Se ha encontrado un castillo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: ",castillo)
         return piezas, castillo, pieza_inicio
 
 
