@@ -706,7 +706,7 @@ class Test_basico(unittest.TestCase):
         pieza = Pieza_terreno(9)
         partida.poner_pieza(pieza, [1,0])
         castillo,piezas = partida.es_castillo(pieza)
-        self.assertEqual(2, piezas)
+        self.assertEqual(2, len(piezas))
 
     def test_comprobar_cierre_castillos5(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
@@ -729,10 +729,10 @@ class Test_basico(unittest.TestCase):
         pieza = Pieza_terreno(9)
         jugador = partida.jugador_turno()
         partida.poner_pieza(pieza, [1,0])
+        partida.introducir_meeple(0)
         castillo,piezas = partida.es_castillo(pieza)
         partida.puntuacion_castillos(piezas,castillo)
-        self.assertEqual(2, piezas)
-        self.assertEqual(True, True)
+        self.assertEqual(2, jugador.puntuacion)
 
 if __name__ == '__main__':
     unittest.main()

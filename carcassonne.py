@@ -310,7 +310,6 @@ class Partida:
             return False
         else:
             piezas_totales.append(pieza)
-            #for j,i in enumerate(posiciones):
             for i in posiciones:
                 pieza_inicio = pieza
                 if i == 1:
@@ -332,7 +331,6 @@ class Partida:
 
 
                 if i == 3:
-                    #inicio == 3
                     coord_x2 = coord_x +1
                     pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
                     coord_y2 = coord_y -1
@@ -343,14 +341,12 @@ class Partida:
                     elif pieza_siguiente != []:
                         piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
                     else:
-                        #castillo = False
 
                         if pieza.tipo != 9:
                             if pieza.tipo !=15:
                                 castillo = False
                                 break
                 if i == 5:
-                    #inicio == 5
                     coord_x2 = coord_x - 1
                     pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
                     coord_y2 = coord_y -1
@@ -362,12 +358,12 @@ class Partida:
                         piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
                     else:
                         a=1
-                        #castillo = False
 
-                        #if pieza.tipo != 9:
-                        #    if pieza.tipo !=15:
-                        #        castillo = False
-                        #        break
+
+                        if pieza.tipo != 9:
+                            if pieza.tipo !=15:
+                                castillo = False
+                                break
                 if i == 7:
                     #inicio == 7
                     coord_x2 = coord_x - 1
@@ -381,17 +377,17 @@ class Partida:
                         piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
                     else:
                         a=1
-                        #castillo = False
-                        #if pieza.tipo != 9:
-                        #    if pieza.tipo !=15:
-                        #        castillo = False
-                        #        break
+
+                        if pieza.tipo != 9:
+                            if pieza.tipo !=15:
+                                castillo = False
+                                break
 
                 if castillo == True: #Castillo cerrado
                     numero_piezas = len(piezas_totales)
                     self.piezas_castillos = piezas_totales
                     break
-            return castillo,len(piezas_totales)
+            return castillo,(piezas_totales)
 
 
 
@@ -443,7 +439,7 @@ class Partida:
                 castillo = False
 
         if i == 3:
-            #inicio == 3
+
             coord_x2 = coord_x +1
             pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
             coord_y2 = coord_y -1
@@ -532,21 +528,21 @@ class Partida:
                     puntos = 2*len(piezas)
                 else:
                     puntos = 2
-                jugador[0].actualizar_puntuacion(puntos)
-                jugador.meeples += 1
+                jugadores[0].actualizar_puntuacion(puntos)
+                jugadores[0].meeples += 1
             else:
                 j_mas_meeples = jugadores_con_mas_meeples(piezas, 'Castillo')
                 if len(j_mas_meeples)>1:
-                    for jugador in j_mas_meeples:
-                        jugador.actualizar_puntuacion(10)
-                        jugador.meeples += 1
+                    for jugadores in j_mas_meeples:
+                        jugadores.actualizar_puntuacion(10)
+                        jugadores.meeples += 1
                 else:
                     if len(piezas)>2:
                         puntos = 2*len(piezas)
                     else:
                         puntos = 2
-                        jugador[0].actualizar_puntuacion(puntos)
-                        jugador.meeples += 1
+                        jugadores[0].actualizar_puntuacion(puntos)
+                        jugadores.meeples += 1
 
 
     # Comprueba los cierres de los distintos tipos de terreno al final de cada turno
