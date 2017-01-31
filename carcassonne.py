@@ -145,9 +145,9 @@ class Partida:
         coord_x = coordenadas_colocar[0]
         coord_y = coordenadas_colocar[1]
         pieza_norte = self.ver_pieza_tablero([coord_x, coord_y+1])
-        pieza_oeste = self.ver_pieza_tablero([coord_x+1, coord_y])
+        pieza_oeste = self.ver_pieza_tablero([coord_x-1, coord_y])
         pieza_sur = self.ver_pieza_tablero([coord_x, coord_y-1])
-        pieza_este = self.ver_pieza_tablero([coord_x-1, coord_y])
+        pieza_este = self.ver_pieza_tablero([coord_x+1, coord_y])
         comprobar_pieza = self.ver_pieza_tablero([coord_x,coord_y])
         if comprobar_pieza != []:
             return False
@@ -374,6 +374,7 @@ class Partida:
                     elif pieza_siguiente2 != []:
                         piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
                     else:
+                        a=1
                         #castillo = False
 
                         #if pieza.tipo != 9:
@@ -393,6 +394,7 @@ class Partida:
                     elif pieza_siguiente2 != []:
                         piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
                     else:
+                        a=1
                         #castillo = False
                         #if pieza.tipo != 9:
                         #    if pieza.tipo !=15:
@@ -620,6 +622,7 @@ class Pieza_terreno:
                     indices_posicion.append(i*2)
         # Me quedo con aquellos indices en los que coincida el tipo de terreno
         return indices_posicion
+
     # Devuelve todos los indices de posicion en los que coincide el tipo de terreno
     # que se pasa como argumento
     def posicion_tipo_terreno_en_pieza2(self,tipo_terreno):
