@@ -528,7 +528,7 @@ class Test_basico(unittest.TestCase):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         jugador = Jugador('Ana')
         indice_jugador = partida.buscar_ind_jugador(jugador.nombre)
-        self.assertEqual(1, indice_jugador) 
+        self.assertEqual(1, indice_jugador)
 
     # Test que comprueba si la funcion jugadores_con_mas_meeples funciona bien
     def test_jugador_con_mas_meeples(self):
@@ -583,7 +583,7 @@ class Test_basico(unittest.TestCase):
         partida.introducir_meeple(4)
         partida.comprobar_cierre_camino()
         self.assertEqual(3, partida.jugadores[1].puntuacion)
-    
+
     def test_comprobar_suma_puntos_monasterio(self):
         partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
         pieza1 = Pieza_terreno(17)
@@ -677,6 +677,60 @@ class Test_basico(unittest.TestCase):
         partida.introducir_meeple(5)
         partida.comprobar_cierre_granjas()
         self.assertEqual(10, partida.jugadores[0].puntuacion)
+
+    #Test para comprobar si los castillos estan cerrados
+    def test_comprobar_cierre_castillos(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = partida.ver_pieza_tablero([0,0])
+        castillo,piezas = partida.es_castillo(pieza)
+        self.assertEqual(False, castillo)
+    def test_comprobar_cierre_castillos2(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = Pieza_terreno(9)
+        flag =partida.poner_pieza(pieza, [-1,0])
+        #castillo = partida.es_castillo(pieza)
+        self.assertEqual(False, flag)
+
+    #Test para comprobar si los castillos estan cerrados
+    def test_comprobar_cierre_castillos3(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = Pieza_terreno(9)
+        partida.poner_pieza(pieza, [1,0])
+        castillo,piezas = partida.es_castillo(pieza)
+        self.assertEqual(True, castillo)
+
+    #Test para comprobar si los castillos estan cerrados
+    def test_comprobar_cierre_castillos4(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = Pieza_terreno(9)
+        partida.poner_pieza(pieza, [1,0])
+        castillo,piezas = partida.es_castillo(pieza)
+        self.assertEqual(2, piezas)
+
+    def test_comprobar_cierre_castillos5(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = Pieza_terreno(3)
+        partida.poner_pieza(pieza, [1,0])
+        castillo,piezas = partida.es_castillo(pieza)
+        self.assertEqual(False, castillo)
+
+    def test_comprobar_cierre_castillos6(self):
+        partida = Partida().inicializar(['Paco','Ana','Maria','Pepe'])
+        pieza = Pieza_terreno(19)
+        partida.poner_pieza(pieza, [1,0])
+        castillo,piezas = partida.es_castillo(pieza)
+        self.assertEqual(False, castillo)
+
+
+    def test_comprobar_puntuacion_castillos(self):
+        lista_nombres =['Paco','Ana','Laura','Pepe']
+        partida = Partida().inicializar(lista_nombres)
+        pieza = Pieza_terreno(9)
+        partida.poner_pieza(pieza, [1,0])
+        castillo,piezas = partida.es_castillo(pieza)
+        puntuacion_castillos(piezas,castillo)
+        self.assertEqual(2, piezas)
+        self.assertEqual(True, True)
 
 if __name__ == '__main__':
     unittest.main()

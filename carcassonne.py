@@ -57,7 +57,7 @@ class Partida:
             if i == numero_jugadores:
                 i = 0
             turno = turno + 1
-            i = i + 1            
+            i = i + 1
         return turnos_jugador
 
     # Inicializacion de la partida
@@ -116,7 +116,7 @@ class Partida:
             return True
         else:
             return False
-            
+
     def se_puede_poner_este (self, pieza_este, pieza_colocar):
         if (pieza_este == []):
             return True
@@ -124,7 +124,7 @@ class Partida:
             return True
         else:
             return False
-            
+
     def se_puede_poner_sur(self, pieza_sur, pieza_colocar):
         if (pieza_sur == []):
             return True
@@ -139,8 +139,8 @@ class Partida:
             return True
         else:
             return False
-    
-    # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.        
+
+    # Funcion para comprobar si se puede colocar una pieza en la posicion requerida o no.
     def poner_pieza (self, pieza_colocar, coordenadas_colocar):
         coord_x = coordenadas_colocar[0]
         coord_y = coordenadas_colocar[1]
@@ -157,7 +157,7 @@ class Partida:
             self.tablero.append(pieza_colocar)
         else:
             return False
-    
+
     #Introducir meeple en la ultima ficha del tablero
     def introducir_meeple(self,posicion_meeple):
         jugador = self.jugadores[self.turno % len(self.jugadores)-1]
@@ -183,7 +183,7 @@ class Partida:
         monasterios = self.buscar_tipo_en_tablero("Monasterio")
         self.sumar_puntos_monasterio(monasterios)
 
-    # Suma los puntos en el caso de que se haya completado un monasterio que se pasa como argumento   
+    # Suma los puntos en el caso de que se haya completado un monasterio que se pasa como argumento
     def sumar_puntos_monasterio(self, piezas_monasterio):
         puntos = 0
         for mon in range(len(piezas_monasterio)):
@@ -296,6 +296,279 @@ class Partida:
                         self.jugadores[ind_jugador].actualizar_puntuacion(len(piezas_camino))
                         self.jugadores[ind_jugador].meeples += 1
 
+    #Metodos para buscar castillos cerrados(recursivo)
+    def es_castillo(self,pieza):
+        #posibles_castillos = self.buscar_tipo_en_tablero("Castillo")
+        pieza_siguiente = None
+        encontrado = False
+        castillo = False
+        posiciones = pieza.posicion_tipo_terreno_en_pieza2("Castillo")
+        print ("ARRAY DE POSICIONES ")
+        print posiciones
+        coord_x = pieza.coordenadas[0]
+        print(coord_x)
+        coord_y = pieza.coordenadas[1]
+        piezas_totales = []
+        piezas_castillos = []
+        print("ES_CASTILLO!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        if posiciones == []:
+            return False
+        else:
+            print("Entrando para ver si es castillo")
+            piezas_totales.append(pieza)
+            #for j,i in enumerate(posiciones):
+            for i in posiciones:
+                print ("Holaaaaaa pieza tipo ",pieza.tipo)
+                print i
+                pieza_inicio = pieza
+                if i == 1:
+                    #inicio == 1
+                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza.tipo)
+                    coord_x2 = coord_x +1
+                    pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+                    coord_y2 = coord_y +1
+                    pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
+                    if pieza_siguiente != []:
+                        print("Antes de buscar castillos")
+                        print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza_siguiente.tipo)
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas_totales)
+
+                    if pieza_siguiente2 != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
+                    else:
+                        if pieza.tipo != 9:
+                            if pieza.tipo !=15:
+                                castillo = False
+                                break
+
+
+                if i == 3:
+                    #inicio == 3
+                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza.tipo)
+                    coord_x2 = coord_x +1
+                    pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+                    coord_y2 = coord_y -1
+                    pieza_siguiente = self.ver_pieza_tablero([coord_x,coord_y2])
+                    if pieza_siguiente != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas_totales)
+
+                    elif pieza_siguiente != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
+                    else:
+                        #castillo = False
+
+                        if pieza.tipo != 9:
+                            if pieza.tipo !=15:
+                                castillo = False
+                                break
+                if i == 5:
+                    #inicio == 5
+                    print("AAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAnalizando pieza: ",pieza.tipo)
+                    coord_x2 = coord_x - 1
+                    pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+                    coord_y2 = coord_y -1
+                    pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
+                    if pieza_siguiente != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas_totales)
+
+                    elif pieza_siguiente2 != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
+                    else:
+                        #castillo = False
+
+                        #if pieza.tipo != 9:
+                        #    if pieza.tipo !=15:
+                        #        castillo = False
+                        #        break
+                if i == 7:
+                    #inicio == 7
+                    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAnalizando pieza: ",pieza.tipo)
+                    coord_x2 = coord_x - 1
+                    pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+                    coord_y2 = coord_y +1
+                    pieza_siguiente = self.ver_pieza_tablero([coord_x,coord_y2])
+                    if pieza_siguiente != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas_totales)
+
+                    elif pieza_siguiente2 != []:
+                        piezas_totales,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas_totales)
+                    else:
+                        #castillo = False
+                        #if pieza.tipo != 9:
+                        #    if pieza.tipo !=15:
+                        #        castillo = False
+                        #        break
+
+                if castillo == True: #Castillo cerrado
+                    numero_piezas = len(piezas_totales)
+                    self.piezas_castillos = piezas_totales
+                    break
+            return castillo,len(piezas_totales)
+
+
+
+    def buscar_castillos(self,pieza_inicio,pieza,piezas):
+        posiciones = pieza.posicion_tipo_terreno_en_pieza2("Castillo")
+        castillo = False
+        print("Entrando en buscar castillos")
+        if posiciones == []:
+            return False
+        else:
+            for m,k in enumerate(piezas):
+                if (k!= pieza) & (len(piezas)-1 == m) :
+                    piezas.append(pieza)
+            for j,i in enumerate(posiciones):
+                print posiciones
+                piezas, castillo, pieza_inicio =self.casos(pieza,piezas,i,pieza_inicio,j)
+            print("EN BUSCAR CAMINO CASTILLO ES !!!!",castillo)
+            return piezas,castillo,pieza_inicio
+
+
+    def casos(self,pieza,piezas,i,pieza_inicio,j):
+        posiciones = pieza.posicion_tipo_terreno_en_pieza2("Castillo")
+        analizar = True
+        castillo = False
+        coord_x = pieza.coordenadas[0]
+        coord_y = pieza.coordenadas[1]
+        print("Entramos en casos")
+        if i == 1:
+            #inicio == 1
+            print("Entramos en esquina1")
+            coord_x2 = coord_x +1
+            pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+            coord_y2 = coord_y +1
+            pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
+            if pieza_siguiente != []:
+                for k in piezas:
+                    if k== pieza_siguiente:
+                        analizar = False
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == True:
+                    piezas.append(pieza)
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas)
+
+            if pieza_siguiente2 != []:
+                for k in piezas:
+                    if k== pieza_siguiente2:
+                        analizar = False
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == True:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas)
+            else:
+                castillo = False
+
+        if i == 3:
+            #inicio == 3
+            coord_x2 = coord_x +1
+            pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+            coord_y2 = coord_y -1
+            pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
+            if pieza_siguiente != []:
+                for k in piezas:
+                    if k== pieza_siguiente:
+                        analizar = False
+                        print ("PIEZA DE INICIO ENCONTRADA ")
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            print("ACTUALIZAMOS EL VALOR DE CASTILLO")
+                            castillo= True
+                if analizar == True:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas)
+
+            elif pieza_siguiente2 != []:
+                for k in piezas:
+                    if k== pieza_siguiente2:
+                        analizar = False
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == True:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas)
+            else:
+                castillo = False
+        if i == 5:
+            coord_x2 = coord_x - 1
+            pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+            coord_y2 = coord_y -1
+            pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
+            if pieza_siguiente != []:
+                for k in piezas:
+                    if k== pieza_siguiente:
+                        analizar = False
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == True:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente,piezas)
+
+            if pieza_siguiente2 != []:
+                for k in piezas:
+                    if k== pieza_siguiente2:
+                        analizar = False
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == True:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_inicio,pieza_siguiente2,piezas)
+            else:
+                castillo = False
+        if (j == 7):
+            #inicio == 7
+            coord_x2 = coord_x - 1
+            pieza_siguiente = self.ver_pieza_tablero([coord_x2,coord_y])
+            coord_y2 = coord_y +1
+            pieza_siguiente2 = self.ver_pieza_tablero([coord_x,coord_y2])
+            if pieza_siguiente != []:
+                for k in piezas:
+                    if k== pieza_siguiente:
+                        analizar = False
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == True:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_siguiente,piezas)
+
+            elif pieza_siguiente2 != []:
+                for k in piezas:
+                    if k== pieza_siguiente2:
+                        analizar = True
+                        if (k == pieza_inicio) & (len(posiciones)-1 ==j):
+                            castillo= True
+                if analizar == False:
+                    piezas,castillo,pieza_inicio = self.buscar_castillos(pieza_siguiente2,piezas)
+            else:
+                castillo = False
+        print("Se ha encontrado un castillo!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: ",castillo)
+        return piezas, castillo, pieza_inicio
+
+
+    #Contabilizar puntos por castillos cerrados
+    def puntuacion_castillos(self,piezas,castillo):
+        jugadores = []
+        jugadores1 = []
+        if castillo == True:
+            for pieza in piezas:
+                if pieza.meeples != None:
+                    jugadores.append(pieza.jugador)
+            if len(jugadores) == 1:
+                if len(piezas)>2:
+                    puntos = 2*len(piezas)
+                else:
+                    puntos = 2
+                jugador[0].actualizar_puntuacion(puntos)
+                jugador.meeples += 1
+            else:
+                j_mas_meeples = jugadores_con_mas_meeples(piezas, 'Castillo')
+                if len(j_mas_meeples)>1:
+                    for jugador in j_mas_meeples:
+                        jugador.actualizar_puntuacion(10)
+                        jugador.meeples += 1
+                else:
+                    if len(piezas)>2:
+                        puntos = 2*len(piezas)
+                    else:
+                        puntos = 2
+                        jugador[0].actualizar_puntuacion(puntos)
+                        jugador.meeples += 1
+
+
     # Comprueba los cierres de los distintos tipos de terreno al final de cada turno
     def comprobar_cierres(self):
         self.comprobar_cierre_monasterio()
@@ -347,8 +620,19 @@ class Pieza_terreno:
                     indices_posicion.append(i*2)
         # Me quedo con aquellos indices en los que coincida el tipo de terreno
         return indices_posicion
+    # Devuelve todos los indices de posicion en los que coincide el tipo de terreno
+    # que se pasa como argumento
+    def posicion_tipo_terreno_en_pieza2(self,tipo_terreno):
+        # Elimino las esquinas
+        posicion = self.posicion
+        # Me quedo con aquellos indices en los que coincida el tipo de terreno
+        indices_posicion = []
+        for i in range(len(posicion)):
+            if posicion[i] == tipo_terreno:
+                indices_posicion.append(i)
+        return indices_posicion
 
-        
+
     # Repite cada pieza el numero de veces que aparezca en el juego original
     def repetir_pieza(self):
         if self.tipo == 1:
